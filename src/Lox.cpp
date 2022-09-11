@@ -1,5 +1,5 @@
 // std
-#include <cstdio>
+#include "stdio.h"
 #include <cstdlib>
 #include <iostream>
 #include <list>
@@ -68,8 +68,8 @@ namespace Lox {
     }
 
     fclose(fp);
+
     std::string source(file);
-    free(file);
     run(source);
 
     if (mHadError) {
