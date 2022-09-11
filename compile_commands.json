@@ -1,22 +1,22 @@
 [
 {
-  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build/osx-debug",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++17 -o src/CMakeFiles/lox.dir/Main.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Main.cpp",
-  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Main.cpp"
+  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Main.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Main.cpp",
+  "file": "/home/juan/Desktop/computer-science/lox/src/Main.cpp"
 },
 {
-  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build/osx-debug",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++17 -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Lox.cpp",
-  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Lox.cpp"
+  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Lox.cpp",
+  "file": "/home/juan/Desktop/computer-science/lox/src/Lox.cpp"
 },
 {
-  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build/osx-debug",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++17 -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Scanner.cpp",
-  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Scanner.cpp"
+  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Scanner.cpp",
+  "file": "/home/juan/Desktop/computer-science/lox/src/Scanner.cpp"
 },
 {
-  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build/osx-debug",
-  "command": "/Library/Developer/CommandLineTools/usr/bin/c++ -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX12.3.sdk -std=gnu++17 -o src/CMakeFiles/lox.dir/Token.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Token.cpp",
-  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Token.cpp"
+  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Token.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Token.cpp",
+  "file": "/home/juan/Desktop/computer-science/lox/src/Token.cpp"
 }
 ]

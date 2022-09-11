@@ -2,6 +2,7 @@
 #include <vector>
 #include <exception>
 #include <iostream>
+#include <cstring>
 
 // lox
 #include "Scanner.hpp"
