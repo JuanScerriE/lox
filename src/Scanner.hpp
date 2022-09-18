@@ -19,7 +19,7 @@ namespace Lox {
     void scanToken();
     char advance();
     void addToken(TokenType type);
-    void addToken(TokenType type, Literal literal);
+    void addToken(TokenType type, Object literal);
     bool match(char expected);
     char peek();
     void string();

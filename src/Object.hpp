@@ -4,7 +4,7 @@
 #include <string>
 
 namespace Lox {
-  union Literal {
+  union Object {
     void* nil;
     char* string;
     double number;

@@ -5,21 +5,21 @@
 
 // lox
 #include "TokenType.hpp"
-#include "Literal.hpp"
+#include "Object.hpp"
 
 namespace Lox {
   class Token {
   public:
-    Token(TokenType type, const std::string& lexeme, Literal literal, int line);
+    Token(TokenType type, const std::string& lexeme, Object literal, int line);
     TokenType getType();
-    Literal getLiteral();
+    Object getLiteral();
 
     friend std::ostream& operator<<(std::ostream& out, const Token& token);
 
   private:
     const TokenType mType;
     const std::string mLexeme;
-    const Literal mLiteral;
+    const Object mLiteral;
     const int mLine;
   };
 } // namespace Lox

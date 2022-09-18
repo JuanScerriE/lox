@@ -123,7 +123,7 @@ namespace Lox {
     addToken(type, {.nil = nullptr});
   }
 
-  void Scanner::addToken(TokenType type, Literal literal) {
+  void Scanner::addToken(TokenType type, Object literal) {
     mTokens.push_back(Token(type, mSource.substr(mStart, mCurrent - mStart), literal, mLine));
   }
 

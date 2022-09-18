@@ -5,7 +5,7 @@
 #include "Token.hpp"
 
 namespace Lox {
-  Token::Token(TokenType type, const std::string& lexeme, Literal literal, int line)
+  Token::Token(TokenType type, const std::string& lexeme, Object literal, int line)
     : mType(type), mLexeme(lexeme), mLiteral(literal), mLine(line) {}
 
   std::ostream& operator<<(std::ostream& out, const Token& token) {
@@ -136,7 +136,7 @@ namespace Lox {
     return mType;
   }
 
-  Literal Token::getLiteral() {
+  Object Token::getLiteral() {
     return mLiteral;
   }
 } // namespace Lox
