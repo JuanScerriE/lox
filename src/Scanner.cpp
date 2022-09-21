@@ -28,7 +28,7 @@ namespace Lox {
       scanToken();
     }
 
-    mTokens.push_back(Token(TokenType::END_OF_FILE, "", {.nil = nullptr}, mLine));
+    mTokens.push_back(Token(TokenType::END_OF_FILE, "", {.type = TokenType::NIL, .nil = nullptr}, mLine));
     return mTokens;
   }
 
@@ -120,7 +120,7 @@ namespace Lox {
 
 
   void Scanner::addToken(TokenType type) {
-    addToken(type, {.nil = nullptr});
+    addToken(type, {.type = TokenType::NIL, .nil = nullptr});
   }
 
   void Scanner::addToken(TokenType type, Object literal) {
@@ -170,7 +170,7 @@ namespace Lox {
     value[mCurrent - mStart - 1] = 0;
     memcpy(value, mSource.substr(mStart + 1, mCurrent - 1 - mStart - 1).c_str(), mCurrent - mStart - 1);
 
-    addToken(TokenType::STRING, {.string = value});
+    addToken(TokenType::STRING, {.type = TokenType::STRING, .string = value});
   }
 
   bool Scanner::isDigit(char c) {
@@ -191,7 +191,7 @@ namespace Lox {
       }
     }
 
-    addToken(TokenType::NUMBER, {.number = atof(mSource.substr(mStart, mCurrent - mStart).c_str())});
+    addToken(TokenType::NUMBER, {.type = TokenType::NUMBER, .number = atof(mSource.substr(mStart, mCurrent - mStart).c_str())});
   }
 
   char Scanner::peekNext() {

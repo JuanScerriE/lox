@@ -7,64 +7,71 @@
 #include "Object.hpp"
 #include "Token.hpp"
 
-namespace Lox {
-  class Expr {};
-
-  class Binary : Expr {
-     public:
-       Binary
-       (
-         const Expr& left,
-         const Token& oper,
-         const Expr& right
-       )
-         :
-         left(left),
-         oper(oper),
-         right(right) {}
-
-       const Expr& left;
-       const Token& oper;
-       const Expr& right;
+namespace Lox
+{
+  class Expr
+  {
   };
 
-  class Grouping : Expr {
-     public:
-       Grouping
-       (
-         const Expr& expression
-       )
-         :
-         expression(expression) {}
+  class Binary : Expr
+  {
+  public:
+    Binary
+    (
+      const Expr& left,
+      const Token& oper,
+      const Expr& right
+    )
+    :
+    left(left),
+    oper(oper),
+    right(right) {}
 
-       const Expr& expression;
+    const Expr& left;
+    const Token& oper;
+    const Expr& right;
   };
 
-  class Literal : Expr {
-     public:
-       Literal
-       (
-         const Object& value
-       )
-         :
-         value(value) {}
+  class Grouping : Expr
+  {
+  public:
+    Grouping
+    (
+      const Expr& expr
+    )
+    :
+    expr(expr) {}
 
-       const Object& value;
+    const Expr& expr;
   };
 
-  class Unary : Expr {
-     public:
-       Unary
-       (
-         const Token& oper,
-         const Expr& right
-       )
-         :
-         oper(oper),
-         right(right) {}
+  class Literal : Expr
+  {
+  public:
+    Literal
+    (
+      const Object& value
+    )
+    :
+    value(value) {}
 
-       const Token& oper;
-       const Expr& right;
+    const Object& value;
+  };
+
+  class Unary : Expr
+  {
+  public:
+    Unary
+    (
+      const Token& oper,
+      const Expr& right
+    )
+    :
+    oper(oper),
+    right(right) {}
+
+    const Token& oper;
+    const Expr& right;
   };
 
 } // namespace Lox

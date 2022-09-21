@@ -2,16 +2,18 @@
 
 import sys
 
-def defineType(file, className, baseName, field_list):
+
+def define_type(file, class_name, base_name, field_list):
     fields = field_list.split(", ")
 
     file.write(
-"""  class {0} : {1} {{
-     public:
-       {0}
-       (
-""".format(className, baseName, fields)
-            )
+"""  class {0} : {1}
+  {{
+  public:
+    {0}
+    (
+""".format(class_name, base_name)
+    )
 
     for i in range(len(fields)):
         field_arr = fields[i].split(" ")
@@ -20,36 +22,35 @@ def defineType(file, className, baseName, field_list):
 
         if i < len(fields) - 1:
             file.write(
-"""         const {}& {},
+"""      const {0}& {1},
 """.format(type, name)
-                      )
+            )
         else:
             file.write(
-"""         const {}& {}
+"""      const {0}& {1}
 """.format(type, name)
-                      )
+            )
 
     file.write(
-
-"""       )
-         :
-""".format(className, baseName, fields)
-            )
+"""    )
+    :
+"""
+    )
 
     for i in range(len(fields)):
         name = fields[i].split(" ")[1]
 
         if i < len(fields) - 1:
             file.write(
-"""         {0}({0}),
+"""    {0}({0}),
 """.format(name)
-                    )
+            )
         else:
             file.write(
-"""         {0}({0}) {{}}
+"""    {0}({0}) {{}}
 
 """.format(name)
-                    )
+            )
 
     for i in range(len(fields)):
         field_arr = fields[i].split(" ")
@@ -57,20 +58,19 @@ def defineType(file, className, baseName, field_list):
         name = field_arr[1]
 
         file.write(
-"""       const {}& {};
+"""    const {0}& {1};
 """.format(type, name)
-                )
+        )
 
     file.write(
 """  };
 
 """
-            )
-    
+    )
 
-def defineAst(outputDir, baseName, types):
-    path = outputDir + "/" + baseName + ".hpp"
-    print(path)
+
+def define_ast(output_dir, base_name, types):
+    path = output_dir + "/" + base_name + ".hpp"
 
     file = open(path, "w")
 
@@ -84,45 +84,45 @@ def defineAst(outputDir, baseName, types):
 #include "Object.hpp"
 #include "Token.hpp"
 
-namespace Lox {{
+namespace Lox
+{{
+  class {0}
+  {{
+  }};
 
-  class {0} {{}};
-
-""".format(baseName)                        
-            )
+""".format(base_name)
+    )
 
     for type in types:
-        type_arr = type.split(":", 1)
-        className = type_arr[0].strip() 
+        type_arr = type.split(":")
+        class_name = type_arr[0].strip()
         field_list = type_arr[1].strip()
-        defineType(file, className, baseName, field_list)
-
+        define_type(file, class_name, base_name, field_list)
 
     file.write(
-"""} // namespace Lox
-"""
-            )
+"""} // namespace Lox"""
+    )
 
     file.close()
 
 
 def main():
-    if (len(sys.argv) != 2):
+    if len(sys.argv) != 2:
         print("usage: generate_ast <output directory>",
-                file=sys.stderr)
+              file=sys.stderr)
         return 64
 
-    outputDir = sys.argv[1]
+    output_dir = sys.argv[1]
 
-    defineAst(outputDir, "Expr", [
+    define_ast(output_dir, "Expr", [
         "Binary : Expr left, Token oper, Expr right",
-        "Grouping : Expr expression",
+        "Grouping : Expr expr",
         "Literal : Object value",
         "Unary : Token oper, Expr right"
-        ])
+    ])
 
     return 0
 
+
 if __name__ == "__main__":
     sys.exit(main())
-
