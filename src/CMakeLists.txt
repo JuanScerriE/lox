@@ -3,4 +3,5 @@ add_executable(lox
   Lox.cpp
   Scanner.cpp
   Token.cpp
+  AstPrinter.cpp
 )

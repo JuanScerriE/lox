@@ -4,74 +4,71 @@
 #include <list>
 
 // lox
+#include "ExprType.hpp"
 #include "Object.hpp"
 #include "Token.hpp"
 
-namespace Lox
-{
-  class Expr
-  {
-  };
+namespace Lox {
+class Expr {
+public:
+  ExprType type;
+};
 
-  class Binary : Expr
-  {
-  public:
-    Binary
-    (
-      const Expr& left,
-      const Token& oper,
-      const Expr& right
-    )
-    :
-    left(left),
-    oper(oper),
-    right(right) {}
+class Binary : public Expr {
+public:
+    Binary(
+        Expr* left,
+        Token* oper,
+        Expr* right)
+        : mLeft(left)
+        , mOper(oper)
+        , mRight(right)
+    {
+        type = ExprType::BINARY;
+    }
 
-    const Expr& left;
-    const Token& oper;
-    const Expr& right;
-  };
+    Expr* mLeft;
+    Token* mOper;
+    Expr* mRight;
+};
 
-  class Grouping : Expr
-  {
-  public:
-    Grouping
-    (
-      const Expr& expr
-    )
-    :
-    expr(expr) {}
+class Grouping : public Expr {
+public:
+    Grouping(
+        Expr* expr)
+        : mExpr(expr)
+    {
+        type = ExprType::GROUPING;
+    }
 
-    const Expr& expr;
-  };
+    Expr* mExpr;
+};
 
-  class Literal : Expr
-  {
-  public:
-    Literal
-    (
-      const Object& value
-    )
-    :
-    value(value) {}
+class Literal : public Expr {
+public:
+    Literal(
+        Object* value)
+        : mValue(value)
+    {
+        type = ExprType::LITERAL;
+    }
 
-    const Object& value;
-  };
+    Object* mValue;
+};
 
-  class Unary : Expr
-  {
-  public:
-    Unary
-    (
-      const Token& oper,
-      const Expr& right
-    )
-    :
-    oper(oper),
-    right(right) {}
+class Unary : public Expr {
+public:
+    Unary(
+        Token* oper,
+        Expr* right)
+        : mOper(oper)
+        , mRight(right)
+    {
+        type = ExprType::UNARY;
+    }
 
-    const Token& oper;
-    const Expr& right;
-  };
+    Token* mOper;
+    Expr* mRight;
+};
 
 } // namespace Lox

@@ -1,166 +1,174 @@
 // std
-#include <vector>
+#include <cstring>
 #include <exception>
 #include <iostream>
-#include <cstring>
+#include <vector>
 
 // lox
-#include "Scanner.hpp"
 #include "Lox.hpp"
+#include "Scanner.hpp"
 #include "TokenType.hpp"
 
 namespace Lox {
-  Scanner::Scanner(const std::string& source)
-      : mSource(source) {}
 
-  Scanner::~Scanner() {
+Scanner::Scanner(std::string const& source)
+    : mSource(source)
+{
+}
+
+Scanner::~Scanner()
+{
     for (Token token : mTokens) {
-      if (token.getType() == TokenType::STRING) {
-        free(token.getLiteral().string);
-      }
+        if (token.getType() == TokenType::STRING) {
+            free(token.getLiteral().string);
+        }
     }
-  }
+}
 
-  std::list<Token> Scanner::scanTokens() {
+std::list<Token> Scanner::scanTokens()
+{
     while (!isAtEnd()) {
-      // we are at the beginning of the next lexeme
-      mStart = mCurrent;
-      scanToken();
+        // we are at the beginning of the next lexeme
+        mStart = mCurrent;
+        scanToken();
     }
 
-    mTokens.push_back(Token(TokenType::END_OF_FILE, "", {.type = TokenType::NIL, .nil = nullptr}, mLine));
+    mTokens.push_back(
+        Token(TokenType::END_OF_FILE, "", { .type = ObjectType::NIL }, mLine));
     return mTokens;
-  }
+}
 
-  bool Scanner::isAtEnd() {
-    return mCurrent >= mSource.length();
-  }
+bool Scanner::isAtEnd() { return mCurrent >= mSource.length(); }
 
-  void Scanner::scanToken() {
+void Scanner::scanToken()
+{
     char c = advance();
-    
+
     switch (c) {
-      case '(':
+    case '(':
         addToken(TokenType::LEFT_PAREN);
         break;
-      case ')':
+    case ')':
         addToken(TokenType::RIGHT_PAREN);
         break;
-      case '{':
+    case '{':
         addToken(TokenType::LEFT_BRACE);
         break;
-      case '}':
+    case '}':
         addToken(TokenType::RIGHT_BRACE);
         break;
-      case '.':
+    case '.':
         addToken(TokenType::DOT);
         break;
-      case ',':
+    case ',':
         addToken(TokenType::COMMA);
         break;
-      case ';':
+    case ';':
         addToken(TokenType::SEMICOLON);
         break;
-      case '+':
+    case '+':
         addToken(TokenType::PLUS);
         break;
-      case '-':
+    case '-':
         addToken(TokenType::MINUS);
         break;
-      case '*':
+    case '*':
         addToken(TokenType::STAR);
         break;
-      case '!':
+    case '!':
         addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
         break;
-      case '=':
+    case '=':
         addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
         break;
-      case '<':
+    case '<':
         addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
         break;
-      case '>':
+    case '>':
         addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
         break;
-      case '/':
+    case '/':
         if (match('/')) {
-          while (peek() != '\n' && !isAtEnd()) {
-            advance();
-          }
+            while (peek() != '\n' && !isAtEnd()) {
+                advance();
+            }
         } else {
-          addToken(TokenType::SLASH);
+            addToken(TokenType::SLASH);
         }
         break;
-      case ' ':
-      case '\r':
-      case '\t':
+    case ' ':
+    case '\r':
+    case '\t':
         // ignore whitespace
         break;
-      case '\n':
+    case '\n':
         mLine++;
         break;
-      case '"':
+    case '"':
         string();
         break;
-      default:
+    default:
         if (isDigit(c)) {
-          number();
+            number();
         } else if (isAlpha(c)) {
-          identifier();
+            identifier();
         } else {
-          Runner::error(mLine, "lox: unexpected character");
+            Runner::error(mLine, "lox: unexpected character");
         }
         break;
     }
-  }
+}
 
-  char Scanner::advance() {
-    return mSource[mCurrent++]; 
-  }
+char Scanner::advance() { return mSource[mCurrent++]; }
 
+void Scanner::addToken(TokenType type)
+{
+    addToken(type, { .type = ObjectType::NIL });
+}
 
-  void Scanner::addToken(TokenType type) {
-    addToken(type, {.type = TokenType::NIL, .nil = nullptr});
-  }
+void Scanner::addToken(TokenType type, Object literal)
+{
+    mTokens.push_back(
+        Token(type, mSource.substr(mStart, mCurrent - mStart), literal, mLine));
+}
 
-  void Scanner::addToken(TokenType type, Object literal) {
-    mTokens.push_back(Token(type, mSource.substr(mStart, mCurrent - mStart), literal, mLine));
-  }
-
-  bool Scanner::match(char expected) {
+bool Scanner::match(char expected)
+{
     if (isAtEnd()) {
-      return false;
+        return false;
     }
 
     if (mSource[mCurrent] != expected) {
-      return false;
+        return false;
     }
 
     mCurrent++;
 
     return true;
-  }
+}
 
-  char Scanner::peek() {
+char Scanner::peek()
+{
     if (isAtEnd()) {
-      return '\0';
+        return '\0';
     }
 
     return mSource[mCurrent];
-  }
+}
 
-  void Scanner::string() {
+void Scanner::string()
+{
     while (peek() != '"' && !isAtEnd()) {
-      if (peek() == '\n') {
-        mLine++;
-      }
+        if (peek() == '\n') {
+            mLine++;
+        }
 
-      advance();
+        advance();
     }
 
     if (isAtEnd()) {
-      Runner::error(mLine, "lox: unterminated string");
-      return;
+        Runner::error(mLine, "lox: unterminated string");
+        return;
     }
 
     // the closing "
@@ -168,61 +176,62 @@ namespace Lox {
 
     char* value = (char*)malloc(sizeof(char*) * (mCurrent - mStart));
     value[mCurrent - mStart - 1] = 0;
-    memcpy(value, mSource.substr(mStart + 1, mCurrent - 1 - mStart - 1).c_str(), mCurrent - mStart - 1);
+    memcpy(value, mSource.substr(mStart + 1, mCurrent - 1 - mStart - 1).c_str(),
+        mCurrent - mStart - 1);
 
-    addToken(TokenType::STRING, {.type = TokenType::STRING, .string = value});
-  }
+    addToken(TokenType::STRING, { .type = ObjectType::STRING, .string = value });
+}
 
-  bool Scanner::isDigit(char c) {
-    return c >= '0' && c <= '9';
-  }
-
-  void Scanner::number() {
+void Scanner::number()
+{
     while (isDigit(peek())) {
-      advance();
+        advance();
     }
 
     // look for fractional part
     if (peek() == '.' && isDigit(peekNext())) {
-      // consume the "."
-      advance();
-      while (isDigit(peek())) {
+        // consume the "."
         advance();
-      }
+        while (isDigit(peek())) {
+            advance();
+        }
     }
 
-    addToken(TokenType::NUMBER, {.type = TokenType::NUMBER, .number = atof(mSource.substr(mStart, mCurrent - mStart).c_str())});
-  }
+    addToken(TokenType::NUMBER,
+        { .type = ObjectType::NUMBER,
+            .number = atof(mSource.substr(mStart, mCurrent - mStart).c_str()) });
+}
 
-  char Scanner::peekNext() {
+char Scanner::peekNext()
+{
     if (mCurrent + 1 >= mSource.length()) {
-      return '\0';
+        return '\0';
     }
 
     return mSource[mCurrent + 1];
-  }
+}
 
-  void Scanner::identifier() {
+void Scanner::identifier()
+{
     while (isAlphaNumeric(peek())) {
-      advance();
+        advance();
     }
-  
+
     std::string text = mSource.substr(mStart, mCurrent - mStart);
 
     try {
-      addToken(keywords.at(text));
+        addToken(keywords.at(text));
     } catch (std::exception& ex) {
-      addToken(TokenType::IDENTIFIER);
+        addToken(TokenType::IDENTIFIER);
     }
-  }
+}
 
-  bool Scanner::isAlpha(char c) {
-    return (c >= 'a' && c <= 'z') ||
-      (c >= 'A' && c <= 'Z') ||
-      c == '_';
-  }
+bool Scanner::isDigit(char c) { return c >= '0' && c <= '9'; }
 
-  bool Scanner::isAlphaNumeric(char c) {
-    return isDigit(c) || isAlpha(c);
-  } 
+bool Scanner::isAlpha(char c)
+{
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == '_';
+}
+
+bool Scanner::isAlphaNumeric(char c) { return isDigit(c) || isAlpha(c); }
 } // namespace Lox

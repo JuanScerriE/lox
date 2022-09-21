@@ -23,12 +23,13 @@ namespace Lox {
     bool match(char expected);
     char peek();
     void string();
-    bool isDigit(char c);
     void number();
     char peekNext();
     void identifier();
-    bool isAlpha(char c);
-    bool isAlphaNumeric(char c);
+
+    static bool isDigit(char c);
+    static bool isAlpha(char c);
+    static bool isAlphaNumeric(char c);
 
     const std::string mSource;
     std::list<Token> mTokens;

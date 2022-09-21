@@ -5,138 +5,151 @@
 #include "Token.hpp"
 
 namespace Lox {
-  Token::Token(TokenType type, const std::string& lexeme, Object literal, int line)
-    : mType(type), mLexeme(lexeme), mLiteral(literal), mLine(line) {}
+Token::Token(TokenType type, std::string const& lexeme, Object literal, int line)
+    : mType(type)
+    , mLexeme(lexeme)
+    , mLiteral(literal)
+    , mLine(line)
+{
+}
 
-  std::ostream& operator<<(std::ostream& out, const Token& token) {
+std::ostream& operator<<(std::ostream& out, Token const& token)
+{
     switch (token.mType) {
-      case TokenType::LEFT_PAREN: 
-        out << "LEFT_PAREN " << token.mLexeme; 
+    case TokenType::LEFT_PAREN:
+        out << "LEFT_PAREN " << token.mLexeme;
         break;
-      case TokenType::RIGHT_PAREN:
+    case TokenType::RIGHT_PAREN:
         out << "RIGHT_PAREN " << token.mLexeme;
         break;
-      case TokenType::LEFT_BRACE:
+    case TokenType::LEFT_BRACE:
         out << "LEFT_BRACE " << token.mLexeme;
         break;
-      case TokenType::RIGHT_BRACE:
+    case TokenType::RIGHT_BRACE:
         out << "RIGHT_BRACE " << token.mLexeme;
         break;
-      case TokenType::COMMA:
+    case TokenType::COMMA:
         out << "COMMA " << token.mLexeme;
         break;
-      case TokenType::DOT:
+    case TokenType::DOT:
         out << "DOT " << token.mLexeme;
         break;
-      case TokenType::MINUS:
+    case TokenType::MINUS:
         out << "MINUS " << token.mLexeme;
         break;
-      case TokenType::PLUS:
+    case TokenType::PLUS:
         out << "PLUS " << token.mLexeme;
         break;
-      case TokenType::SEMICOLON:
+    case TokenType::SEMICOLON:
         out << "SEMICOLON " << token.mLexeme;
         break;
-      case TokenType::SLASH:
+    case TokenType::SLASH:
         out << "SLASH " << token.mLexeme;
         break;
-      case TokenType::STAR:
+    case TokenType::STAR:
         out << "STAR " << token.mLexeme;
         break;
-      case TokenType::BANG:
+    case TokenType::BANG:
         out << "BANG " << token.mLexeme;
         break;
-      case TokenType::BANG_EQUAL:
+    case TokenType::BANG_EQUAL:
         out << "BANG_EQUAL " << token.mLexeme;
         break;
-      case TokenType::EQUAL:
+    case TokenType::EQUAL:
         out << "EQUAL " << token.mLexeme;
         break;
-      case TokenType::EQUAL_EQUAL:
+    case TokenType::EQUAL_EQUAL:
         out << "EQUAL_EQUAL " << token.mLexeme;
         break;
-      case TokenType::GREATER:
+    case TokenType::GREATER:
         out << "GREATER " << token.mLexeme;
         break;
-      case TokenType::GREATER_EQUAL:
+    case TokenType::GREATER_EQUAL:
         out << "GREATER_EQUAL " << token.mLexeme;
         break;
-      case TokenType::LESS:
+    case TokenType::LESS:
         out << "LESS " << token.mLexeme;
         break;
-      case TokenType::LESS_EQUAL:
+    case TokenType::LESS_EQUAL:
         out << "LESS_EQUAL " << token.mLexeme;
         break;
-      case TokenType::IDENTIFIER:
+    case TokenType::IDENTIFIER:
         out << "IDENTIFIER " << token.mLexeme;
         break;
-      case TokenType::STRING:
+    case TokenType::STRING:
         out << "STRING " << token.mLexeme << " " << token.mLiteral.string;
         break;
-      case TokenType::NUMBER:
+    case TokenType::NUMBER:
         out << "NUMBER " << token.mLexeme << " " << token.mLiteral.number;
         break;
-      case TokenType::AND:
+    case TokenType::AND:
         out << "AND " << token.mLexeme;
         break;
-      case TokenType::CLASS:
+    case TokenType::CLASS:
         out << "CLASS " << token.mLexeme;
         break;
-      case TokenType::ELSE:
+    case TokenType::ELSE:
         out << "ELSE " << token.mLexeme;
         break;
-      case TokenType::FALSE:
+    case TokenType::FALSE:
         out << "FALSE " << token.mLexeme;
         break;
-      case TokenType::FUN:
+    case TokenType::FUN:
         out << "FUN " << token.mLexeme;
         break;
-      case TokenType::FOR:
+    case TokenType::FOR:
         out << "FOR " << token.mLexeme;
         break;
-      case TokenType::IF:
+    case TokenType::IF:
         out << "IF " << token.mLexeme;
         break;
-      case TokenType::NIL:
+    case TokenType::NIL:
         out << "NIL " << token.mLexeme;
         break;
-      case TokenType::OR:
+    case TokenType::OR:
         out << "OR " << token.mLexeme;
         break;
-      case TokenType::PRINT:
+    case TokenType::PRINT:
         out << "PRINT " << token.mLexeme;
         break;
-      case TokenType::RETURN:
+    case TokenType::RETURN:
         out << "RETURN " << token.mLexeme;
         break;
-      case TokenType::SUPER:
+    case TokenType::SUPER:
         out << "SUPER " << token.mLexeme;
         break;
-      case TokenType::THIS:
+    case TokenType::THIS:
         out << "THIS " << token.mLexeme;
         break;
-      case TokenType::TRUE:
+    case TokenType::TRUE:
         out << "TRUE " << token.mLexeme;
         break;
-      case TokenType::VAR:
+    case TokenType::VAR:
         out << "VAR " << token.mLexeme;
         break;
-      case TokenType::WHILE:
+    case TokenType::WHILE:
         out << "WHILE " << token.mLexeme;
         break;
-      case TokenType::END_OF_FILE:
+    case TokenType::END_OF_FILE:
         out << "END_OF_FILE " << token.mLexeme;
         break;
     }
 
     return out;
-  }
+}
 
-  TokenType Token::getType() {
+TokenType Token::getType()
+{
     return mType;
-  }
+}
 
-  Object Token::getLiteral() {
+Object Token::getLiteral()
+{
     return mLiteral;
-  }
+}
+
+std::string Token::getLexeme()
+{
+    return mLexeme;
+}
 } // namespace Lox
