@@ -9,37 +9,43 @@ namespace Lox {
 
 namespace AstPrinter {
 
-std::string print(Expr const* expr)
+
+std::string AstPrinter::print(Expr::Expr& expr)
 {
-    if (expr->type == ExprType::BINARY) {
-        Binary const* castExpr = (Binary*)expr;
-        return parenthesize(castExpr->mOper->getLexeme(), castExpr->mLeft, castExpr->mRight);
-    } else if (expr->type == ExprType::GROUPING) {
-        Grouping const* castExpr = (Grouping*)expr;
-        return parenthesize("group", castExpr->mExpr);
-    } else if (expr->type == ExprType::LITERAL) {
-        Literal const* castExpr = (Literal*)expr;
-        return castExpr->mValue->toString();
-    } else if (expr->type == ExprType::UNARY) {
-        Unary const* castExpr = (Unary*)expr;
-        return parenthesize(castExpr->mOper->getLexeme(), castExpr->mRight);
-    }
+    return expr.accept(*this);
 }
 
-std::string parenthesize(std::string const& name, Expr const* left, Expr const* right)
+
+void AstPrinter::visitBinaryExpr(Expr::Binary& expr) {
+    _result = parenthesize(expr.oper.getLexeme(), expr.left, expr.right);
+}
+
+void AstPrinter::visitGroupingExpr(Expr::Grouping& expr) {
+    _result = parenthesize("group", expr.expr);
+}
+
+void AstPrinter::visitLiteralExpr(Expr::Literal& expr) {
+    _result = expr.value.toString();
+}
+
+void AstPrinter::visitUnaryExpr(Expr::Unary& expr) {
+    _result = parenthesize(expr.oper.getLexeme(), expr.right);
+}
+
+std::string AstPrinter::parenthesize(const std::string& name, Expr::Expr& left, Expr::Expr& right)
 {
     std::ostringstream stream {};
     stream << "(" << name << " " << print(left) << " " << print(right) << ")";
     return stream.str();
 }
 
-std::string parenthesize(std::string const& name, Expr const* expr)
+std::string AstPrinter::parenthesize(const std::string& name, Expr::Expr& expr)
 {
     std::ostringstream stream {};
     stream << "(" << name << " " << print(expr) << ")";
     return stream.str();
 }
 
-}
+} // namespace AstPrinter
 
 } // namespace Lox

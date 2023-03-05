@@ -1,14 +1,26 @@
 // lox
 #include "Expr.hpp"
+#include <string>
 
 namespace Lox {
 
 namespace AstPrinter {
 
-std::string print(Expr const* expr);
-std::string parenthesize(std::string const& name, Expr const* left, Expr const* right);
-std::string parenthesize(std::string const& name, Expr const* expr);
 
-}
+class AstPrinter : public Expr::Visitor<std::string>
+{
+public:
+    std::string print(Expr::Expr& expr);
+    void visitBinaryExpr(Expr::Binary& expr) override;
+    void visitGroupingExpr(Expr::Grouping& expr) override;
+    void visitLiteralExpr(Expr::Literal& expr) override;
+    void visitUnaryExpr(Expr::Unary& expr) override;
 
-}
+private:
+    std::string parenthesize(const std::string& name, Expr::Expr& left, Expr::Expr& right);
+    std::string parenthesize(const std::string& name, Expr::Expr& expr);
+};
+
+} // namespace AstPrinter
+
+} // namespace Lox

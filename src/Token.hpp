@@ -13,7 +13,7 @@ public:
     Token(TokenType type, std::string const& lexeme, Object literal, int line);
     TokenType getType();
     Object getLiteral();
-    std::string getLexeme();
+    std::string getLexeme() const;
 
     friend std::ostream& operator<<(std::ostream& out, Token const& token);
 

@@ -22,12 +22,12 @@ def define_type(file, class_name, base_name, field_list):
 
         if i < len(fields) - 1:
             file.write(
-"""      const {0}& {1},
+"""      {0}& {1},
 """.format(type, name)
             )
         else:
             file.write(
-"""      const {0}& {1}
+"""      {0}& {1}
 """.format(type, name)
             )
 
@@ -52,13 +52,21 @@ def define_type(file, class_name, base_name, field_list):
 """.format(name)
             )
 
+    file.write(
+"""    void do_accept(VisitorBase& visitor) override {{
+      visitor.visit{0}{1}(*this);
+    }}
+    
+""".format(class_name, base_name)
+    )
+
     for i in range(len(fields)):
         field_arr = fields[i].split(" ")
         type = field_arr[0]
         name = field_arr[1]
 
         file.write(
-"""    const {0}& {1};
+"""    {0}& {1};
 """.format(type, name)
         )
 
@@ -68,6 +76,53 @@ def define_type(file, class_name, base_name, field_list):
 """
     )
 
+def define_forward_decleration_types(file, base_name, types):
+    file.write(
+"""  class {0};
+""".format(base_name)
+    )
+
+    for type in types:
+        type_arr = type.split(":")
+        class_name = type_arr[0].strip()
+        file.write(
+"""  class {0};
+""".format(class_name)
+    )
+
+def define_visitor(file, base_name, types):
+    file.write(
+"""
+  class VisitorBase
+  {
+  public:
+"""
+    )
+
+    for type in types:
+        type_name = type.split(":")[0].strip()
+
+        file.write(
+"""    virtual void visit{0}{1}({0}& {2}) = 0;
+""".format(type_name, base_name, base_name.lower())
+        )
+
+    file.write(
+"""  };
+
+  template<typename R>
+  class Visitor : public VisitorBase 
+  {
+  public:
+      R result() const {
+          return _result;
+      }
+  
+  protected:
+      R _result;
+  };
+"""
+    )
 
 def define_ast(output_dir, base_name, types):
     path = output_dir + "/" + base_name + ".hpp"
@@ -86,8 +141,29 @@ def define_ast(output_dir, base_name, types):
 
 namespace Lox
 {{
+
+namespace {0}
+{{
+""".format(base_name)
+    )
+
+    define_forward_decleration_types(file, base_name, types)
+
+    define_visitor(file, base_name, types)
+
+    file.write(
+"""
   class {0}
   {{
+  public:
+
+    template<typename R>
+    R accept(Visitor<R>& visitor) {{
+      do_accept(visitor);
+      return visitor.result();
+    }}
+
+    virtual void do_accept(VisitorBase& visitor) = 0;
   }};
 
 """.format(base_name)
@@ -100,7 +176,11 @@ namespace Lox
         define_type(file, class_name, base_name, field_list)
 
     file.write(
-"""} // namespace Lox"""
+"""
+}} // namespace {0}
+
+}} // namespace Lox
+""".format(base_name)
     )
 
     file.close()

@@ -4,71 +4,132 @@
 #include <list>
 
 // lox
-#include "ExprType.hpp"
 #include "Object.hpp"
 #include "Token.hpp"
 
-namespace Lox {
-class Expr {
-public:
-  ExprType type;
-};
+namespace Lox
+{
 
-class Binary : public Expr {
-public:
-    Binary(
-        Expr* left,
-        Token* oper,
-        Expr* right)
-        : mLeft(left)
-        , mOper(oper)
-        , mRight(right)
-    {
-        type = ExprType::BINARY;
+namespace Expr
+{
+  class Expr;
+  class Binary;
+  class Grouping;
+  class Literal;
+  class Unary;
+
+  class VisitorBase
+  {
+  public:
+    virtual void visitBinaryExpr(Binary& expr) = 0;
+    virtual void visitGroupingExpr(Grouping& expr) = 0;
+    virtual void visitLiteralExpr(Literal& expr) = 0;
+    virtual void visitUnaryExpr(Unary& expr) = 0;
+  };
+
+  template<typename R>
+  class Visitor : public VisitorBase 
+  {
+  public:
+      R result() const {
+          return _result;
+      }
+  
+  protected:
+      R _result;
+  };
+
+  class Expr
+  {
+  public:
+
+    template<typename R>
+    R accept(Visitor<R>& visitor) {
+      do_accept(visitor);
+      return visitor.result();
     }
 
-    Expr* mLeft;
-    Token* mOper;
-    Expr* mRight;
-};
+    virtual void do_accept(VisitorBase& visitor) = 0;
+  };
 
-class Grouping : public Expr {
-public:
-    Grouping(
-        Expr* expr)
-        : mExpr(expr)
-    {
-        type = ExprType::GROUPING;
+  class Binary : Expr
+  {
+  public:
+    Binary
+    (
+      Expr& left,
+      Token& oper,
+      Expr& right
+    )
+    :
+    left(left),
+    oper(oper),
+    right(right) {}
+
+    void do_accept(VisitorBase& visitor) override {
+      visitor.visitBinaryExpr(*this);
     }
+    
+    Expr& left;
+    Token& oper;
+    Expr& right;
+  };
 
-    Expr* mExpr;
-};
+  class Grouping : Expr
+  {
+  public:
+    Grouping
+    (
+      Expr& expr
+    )
+    :
+    expr(expr) {}
 
-class Literal : public Expr {
-public:
-    Literal(
-        Object* value)
-        : mValue(value)
-    {
-        type = ExprType::LITERAL;
+    void do_accept(VisitorBase& visitor) override {
+      visitor.visitGroupingExpr(*this);
     }
+    
+    Expr& expr;
+  };
 
-    Object* mValue;
-};
+  class Literal : Expr
+  {
+  public:
+    Literal
+    (
+      Object& value
+    )
+    :
+    value(value) {}
 
-class Unary : public Expr {
-public:
-    Unary(
-        Token* oper,
-        Expr* right)
-        : mOper(oper)
-        , mRight(right)
-    {
-        type = ExprType::UNARY;
+    void do_accept(VisitorBase& visitor) override {
+      visitor.visitLiteralExpr(*this);
     }
+    
+    Object& value;
+  };
 
-    Token* mOper;
-    Expr* mRight;
-};
+  class Unary : Expr
+  {
+  public:
+    Unary
+    (
+      Token& oper,
+      Expr& right
+    )
+    :
+    oper(oper),
+    right(right) {}
+
+    void do_accept(VisitorBase& visitor) override {
+      visitor.visitUnaryExpr(*this);
+    }
+    
+    Token& oper;
+    Expr& right;
+  };
+
+
+} // namespace Expr
 
 } // namespace Lox

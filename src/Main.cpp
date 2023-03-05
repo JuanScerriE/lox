@@ -18,18 +18,20 @@ int main(int argc, char** argv)
     obj2->type = Lox::ObjectType::NUMBER;
     obj2->number = 45.67;
 
-    Lox::Expr* expression = new Lox::Binary(
-            new Lox::Unary(
-                new Lox::Token(Lox::TokenType::MINUS, "-", {.type = Lox::ObjectType::NIL}, 1),
-                new Lox::Literal(obj1)
+    Lox::Expr::Binary expression = Lox::Expr::Binary(
+            Lox::Expr::Unary(
+                Lox::Token(Lox::TokenType::MINUS, "-", {.type = Lox::ObjectType::NIL}, 1),
+                Lox::Expr::Literal(*obj1)
                 ),
-            new Lox::Token(Lox::TokenType::STAR, "*", {.type = Lox::ObjectType::NIL}, 1),
-            new Lox::Grouping(
-                new Lox::Literal(obj2)
+            Lox::Token(Lox::TokenType::STAR, "*", {.type = Lox::ObjectType::NIL}, 1),
+            Lox::Expr::Grouping(
+                Lox::Expr::Literal(*obj2)
                 )
             );
 
-    std::cout << Lox::AstPrinter::print(expression) << std::endl;
+    Lox::AstPrinter::AstPrinter printer;
+
+    std::cout << printer.print(*expression) << std::endl;
 
     if (argc > 2) {
         std::cout << "lox: usage lox [script]" << std::endl;
