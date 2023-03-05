@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <list>
+#include <memory>
 
 // lox
 #include "Lox.hpp"
@@ -14,6 +15,7 @@ void Runner::report(int line, std::string const& where, std::string const& messa
 {
     std::cerr << "[line " << line << "] Error" << where << ": " << message;
     mHadError = true;
+    std::unique_ptr<Token> hello;
 }
 
 void Runner::error(int line, std::string const& message)

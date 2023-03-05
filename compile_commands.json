@@ -1,27 +1,27 @@
 [
 {
-  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Main.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Main.cpp",
-  "file": "/home/juan/Desktop/computer-science/lox/src/Main.cpp"
+  "directory": "/home/juan/Desktop/computing/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Main.cpp.o -c /home/juan/Desktop/computing/lox/src/Main.cpp",
+  "file": "/home/juan/Desktop/computing/lox/src/Main.cpp"
 },
 {
-  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Lox.cpp",
-  "file": "/home/juan/Desktop/computer-science/lox/src/Lox.cpp"
+  "directory": "/home/juan/Desktop/computing/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /home/juan/Desktop/computing/lox/src/Lox.cpp",
+  "file": "/home/juan/Desktop/computing/lox/src/Lox.cpp"
 },
 {
-  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Scanner.cpp",
-  "file": "/home/juan/Desktop/computer-science/lox/src/Scanner.cpp"
+  "directory": "/home/juan/Desktop/computing/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /home/juan/Desktop/computing/lox/src/Scanner.cpp",
+  "file": "/home/juan/Desktop/computing/lox/src/Scanner.cpp"
 },
 {
-  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Token.cpp.o -c /home/juan/Desktop/computer-science/lox/src/Token.cpp",
-  "file": "/home/juan/Desktop/computer-science/lox/src/Token.cpp"
+  "directory": "/home/juan/Desktop/computing/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/Token.cpp.o -c /home/juan/Desktop/computing/lox/src/Token.cpp",
+  "file": "/home/juan/Desktop/computing/lox/src/Token.cpp"
 },
 {
-  "directory": "/home/juan/Desktop/computer-science/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/AstPrinter.cpp.o -c /home/juan/Desktop/computer-science/lox/src/AstPrinter.cpp",
-  "file": "/home/juan/Desktop/computer-science/lox/src/AstPrinter.cpp"
+  "directory": "/home/juan/Desktop/computing/lox/build/linux-debug",
+  "command": "/usr/bin/c++ -g -std=gnu++17 -o src/CMakeFiles/lox.dir/AstPrinter.cpp.o -c /home/juan/Desktop/computing/lox/src/AstPrinter.cpp",
+  "file": "/home/juan/Desktop/computing/lox/src/AstPrinter.cpp"
 }
 ]
