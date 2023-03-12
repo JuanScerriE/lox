@@ -11,7 +11,6 @@ namespace Lox {
 class Token {
 public:
     Token(TokenType type, std::string const& lexeme, Object literal, int line);
-    Token(TokenType type, std::string const& lexeme, int line);
     TokenType getType();
     Object getLiteral();
     std::string getLexeme() const;

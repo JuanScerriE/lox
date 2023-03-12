@@ -14,14 +14,6 @@ Token::Token(TokenType type, std::string const& lexeme, Object literal, int line
 {
 }
 
-Token::Token(TokenType type, std::string const& lexeme, int line)
-    : mType(type)
-    , mLexeme(lexeme)
-    , mLiteral(Object::createNilObject())
-    , mLine(line)
-{
-}
-
 std::ostream& operator<<(std::ostream& out, Token const& token)
 {
     switch (token.mType) {

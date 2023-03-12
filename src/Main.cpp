@@ -21,11 +21,11 @@ int main(int argc, char** argv)
 
     auto expression = std::make_unique<Lox::Expr::Binary>(
             std::make_unique<Lox::Expr::Unary>(
-                std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNilObject(), 1),
+                std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNil(), 1),
                 std::make_unique<Lox::Expr::Literal>(std::move(obj1))
             ),
             std::make_unique<Lox::Token>(
-                Lox::TokenType::STAR, "*", Lox::Object::createNilObject(), 1
+                Lox::TokenType::STAR, "*", Lox::Object::createNil(), 1
             ),
             std::make_unique<Lox::Expr::Grouping>(
                     std::make_unique<Lox::Expr::Literal>(std::move(obj2))

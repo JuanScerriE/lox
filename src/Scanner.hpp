@@ -54,7 +54,7 @@ namespace Lox {
     };
 
     int mLine = 1;
-    int mCurrent = 0;
-    int mStart = 0;
+    size_t mCurrent = 0;
+    size_t mStart = 0;
   };
 } // namespace Lox

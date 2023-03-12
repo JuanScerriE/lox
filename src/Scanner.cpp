@@ -34,7 +34,7 @@ std::list<Token> Scanner::scanTokens()
     }
 
     mTokens.push_back(
-        Token(TokenType::END_OF_FILE, "", { .type = ObjectType::NIL }, mLine));
+        Token(TokenType::END_OF_FILE, "", Object::createNil(), mLine));
     return mTokens;
 }
 
@@ -123,7 +123,7 @@ char Scanner::advance() { return mSource[mCurrent++]; }
 
 void Scanner::addToken(TokenType type)
 {
-    addToken(type, { .type = ObjectType::NIL });
+    addToken(type, Object::createNil());
 }
 
 void Scanner::addToken(TokenType type, Object literal)
@@ -179,7 +179,7 @@ void Scanner::string()
     memcpy(value, mSource.substr(mStart + 1, mCurrent - 1 - mStart - 1).c_str(),
         mCurrent - mStart - 1);
 
-    addToken(TokenType::STRING, { .type = ObjectType::STRING, .string = value });
+    addToken(TokenType::STRING, Object::createString(value));
 }
 
 void Scanner::number()
@@ -198,8 +198,8 @@ void Scanner::number()
     }
 
     addToken(TokenType::NUMBER,
-        { .type = ObjectType::NUMBER,
-            .number = atof(mSource.substr(mStart, mCurrent - mStart).c_str()) });
+        Object::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str()))
+            );
 }
 
 char Scanner::peekNext()

@@ -5,3 +5,5 @@ add_executable(lox
   Token.cpp
   AstPrinter.cpp
 )
+
+target_compile_options(lox PRIVATE -Wall -Wextra -Wpedantic -Werror)
