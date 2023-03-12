@@ -1,5 +1,6 @@
 // std
 #include <iostream>
+#include <memory>
 
 // lox
 #include "Lox.hpp"
@@ -10,28 +11,30 @@
 int main(int argc, char** argv)
 {
 
-    auto obj1 = new Lox::Object();
+    auto obj1 = std::make_unique<Lox::Object>();
     obj1->type = Lox::ObjectType::NUMBER;
     obj1->number = 123;
 
-    auto obj2 = new Lox::Object();
+    auto obj2 = std::make_unique<Lox::Object>(); 
     obj2->type = Lox::ObjectType::NUMBER;
     obj2->number = 45.67;
 
-    Lox::Expr::Binary expression = Lox::Expr::Binary(
-            Lox::Expr::Unary(
-                Lox::Token(Lox::TokenType::MINUS, "-", {.type = Lox::ObjectType::NIL}, 1),
-                Lox::Expr::Literal(*obj1)
-                ),
-            Lox::Token(Lox::TokenType::STAR, "*", {.type = Lox::ObjectType::NIL}, 1),
-            Lox::Expr::Grouping(
-                Lox::Expr::Literal(*obj2)
+    auto expression = std::make_unique<Lox::Expr::Binary>(
+            std::make_unique<Lox::Expr::Unary>(
+                std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNilObject(), 1),
+                std::make_unique<Lox::Expr::Literal>(std::move(obj1))
+            ),
+            std::make_unique<Lox::Token>(
+                Lox::TokenType::STAR, "*", Lox::Object::createNilObject(), 1
+            ),
+            std::make_unique<Lox::Expr::Grouping>(
+                    std::make_unique<Lox::Expr::Literal>(std::move(obj2))
                 )
             );
 
     Lox::AstPrinter::AstPrinter printer;
 
-    std::cout << printer.print(*expression) << std::endl;
+    std::cout << printer.print(expression.get()) << std::endl;
 
     if (argc > 2) {
         std::cout << "lox: usage lox [script]" << std::endl;

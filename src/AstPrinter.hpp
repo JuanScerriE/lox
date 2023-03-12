@@ -10,15 +10,16 @@ namespace AstPrinter {
 class AstPrinter : public Expr::Visitor<std::string>
 {
 public:
-    std::string print(Expr::Expr& expr);
-    void visitBinaryExpr(Expr::Binary& expr) override;
-    void visitGroupingExpr(Expr::Grouping& expr) override;
-    void visitLiteralExpr(Expr::Literal& expr) override;
-    void visitUnaryExpr(Expr::Unary& expr) override;
+    std::string print(const Expr::Expr* expr);
+
+    void visitBinaryExpr(const Expr::Binary* expr) override;
+    void visitGroupingExpr(const Expr::Grouping* expr) override;
+    void visitLiteralExpr(const Expr::Literal* expr) override;
+    void visitUnaryExpr(const Expr::Unary* expr) override;
 
 private:
-    std::string parenthesize(const std::string& name, Expr::Expr& left, Expr::Expr& right);
-    std::string parenthesize(const std::string& name, Expr::Expr& expr);
+    std::string parenthesize(const std::string& name, const Expr::Expr* left, const Expr::Expr* right);
+    std::string parenthesize(const std::string& name, const Expr::Expr* expr);
 };
 
 } // namespace AstPrinter

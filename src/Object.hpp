@@ -15,6 +15,10 @@ struct Object {
         double number;
     };
 
+    static Object createNilObject() {
+        return {.type = ObjectType::NIL};
+    }
+
     std::string toString() const
     {
         switch (type) {

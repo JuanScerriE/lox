@@ -1,7 +1,7 @@
 #pragma once
 
 // std
-#include <list>
+#include <memory>
 
 // lox
 #include "Object.hpp"
@@ -21,10 +21,10 @@ namespace Expr
   class VisitorBase
   {
   public:
-    virtual void visitBinaryExpr(Binary& expr) = 0;
-    virtual void visitGroupingExpr(Grouping& expr) = 0;
-    virtual void visitLiteralExpr(Literal& expr) = 0;
-    virtual void visitUnaryExpr(Unary& expr) = 0;
+    virtual void visitBinaryExpr(const Binary* expr) = 0;
+    virtual void visitGroupingExpr(const Grouping* expr) = 0;
+    virtual void visitLiteralExpr(const Literal* expr) = 0;
+    virtual void visitUnaryExpr(const Unary* expr) = 0;
   };
 
   template<typename R>
@@ -44,89 +44,89 @@ namespace Expr
   public:
 
     template<typename R>
-    R accept(Visitor<R>& visitor) {
+    R accept(Visitor<R>& visitor) const {
       do_accept(visitor);
       return visitor.result();
     }
 
-    virtual void do_accept(VisitorBase& visitor) = 0;
+    virtual void do_accept(VisitorBase& visitor) const = 0;
   };
 
-  class Binary : Expr
+  class Binary : public Expr
   {
   public:
     Binary
     (
-      Expr& left,
-      Token& oper,
-      Expr& right
+      std::unique_ptr<Expr> left,
+      std::unique_ptr<Token> oper,
+      std::unique_ptr<Expr> right
     )
     :
-    left(left),
-    oper(oper),
-    right(right) {}
+    left(std::move(left)),
+    oper(std::move(oper)),
+    right(std::move(right)) {}
 
-    void do_accept(VisitorBase& visitor) override {
-      visitor.visitBinaryExpr(*this);
+    void do_accept(VisitorBase& visitor) const override {
+      visitor.visitBinaryExpr(this);
     }
     
-    Expr& left;
-    Token& oper;
-    Expr& right;
+    std::unique_ptr<Expr> left;
+    std::unique_ptr<Token> oper;
+    std::unique_ptr<Expr> right;
   };
 
-  class Grouping : Expr
+  class Grouping : public Expr
   {
   public:
     Grouping
     (
-      Expr& expr
+      std::unique_ptr<Expr> expr
     )
     :
-    expr(expr) {}
+    expr(std::move(expr)) {}
 
-    void do_accept(VisitorBase& visitor) override {
-      visitor.visitGroupingExpr(*this);
+    void do_accept(VisitorBase& visitor) const override {
+      visitor.visitGroupingExpr(this);
     }
     
-    Expr& expr;
+    std::unique_ptr<Expr> expr;
   };
 
-  class Literal : Expr
+  class Literal : public Expr
   {
   public:
     Literal
     (
-      Object& value
+      std::unique_ptr<Object> value
     )
     :
-    value(value) {}
+    value(std::move(value)) {}
 
-    void do_accept(VisitorBase& visitor) override {
-      visitor.visitLiteralExpr(*this);
+    void do_accept(VisitorBase& visitor) const override {
+      visitor.visitLiteralExpr(this);
     }
     
-    Object& value;
+    std::unique_ptr<Object> value;
   };
 
-  class Unary : Expr
+  class Unary : public Expr
   {
   public:
     Unary
     (
-      Token& oper,
-      Expr& right
+      std::unique_ptr<Token> oper,
+      std::unique_ptr<Expr> right
     )
     :
-    oper(oper),
-    right(right) {}
+    oper(std::move(oper)),
+    right(std::move(right)) {}
 
-    void do_accept(VisitorBase& visitor) override {
-      visitor.visitUnaryExpr(*this);
+    void do_accept(VisitorBase& visitor) const override {
+      visitor.visitUnaryExpr(this);
     }
     
-    Token& oper;
-    Expr& right;
+    std::unique_ptr<Token> oper;
+    std::unique_ptr<Expr> right;
   };
 
 

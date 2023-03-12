@@ -2,6 +2,7 @@
 #include <iostream>
 
 // lox
+#include "Object.hpp"
 #include "Token.hpp"
 
 namespace Lox {
@@ -9,6 +10,14 @@ Token::Token(TokenType type, std::string const& lexeme, Object literal, int line
     : mType(type)
     , mLexeme(lexeme)
     , mLiteral(literal)
+    , mLine(line)
+{
+}
+
+Token::Token(TokenType type, std::string const& lexeme, int line)
+    : mType(type)
+    , mLexeme(lexeme)
+    , mLiteral(Object::createNilObject())
     , mLine(line)
 {
 }
@@ -148,7 +157,7 @@ Object Token::getLiteral()
     return mLiteral;
 }
 
-std::string Token::getLexeme()
+std::string Token::getLexeme() const
 {
     return mLexeme;
 }

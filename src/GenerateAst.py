@@ -7,7 +7,7 @@ def define_type(file, class_name, base_name, field_list):
     fields = field_list.split(", ")
 
     file.write(
-"""  class {0} : {1}
+"""  class {0} : public {1}
   {{
   public:
     {0}
@@ -22,12 +22,12 @@ def define_type(file, class_name, base_name, field_list):
 
         if i < len(fields) - 1:
             file.write(
-"""      {0}& {1},
+"""      std::unique_ptr<{0}> {1},
 """.format(type, name)
             )
         else:
             file.write(
-"""      {0}& {1}
+"""      std::unique_ptr<{0}> {1}
 """.format(type, name)
             )
 
@@ -42,19 +42,19 @@ def define_type(file, class_name, base_name, field_list):
 
         if i < len(fields) - 1:
             file.write(
-"""    {0}({0}),
+"""    {0}(std::move({0})),
 """.format(name)
             )
         else:
             file.write(
-"""    {0}({0}) {{}}
+"""    {0}(std::move({0})) {{}}
 
 """.format(name)
             )
 
     file.write(
-"""    void do_accept(VisitorBase& visitor) override {{
-      visitor.visit{0}{1}(*this);
+"""    void do_accept(VisitorBase& visitor) const override {{
+      visitor.visit{0}{1}(this);
     }}
     
 """.format(class_name, base_name)
@@ -66,7 +66,7 @@ def define_type(file, class_name, base_name, field_list):
         name = field_arr[1]
 
         file.write(
-"""    {0}& {1};
+"""    std::unique_ptr<{0}> {1};
 """.format(type, name)
         )
 
@@ -103,7 +103,7 @@ def define_visitor(file, base_name, types):
         type_name = type.split(":")[0].strip()
 
         file.write(
-"""    virtual void visit{0}{1}({0}& {2}) = 0;
+"""    virtual void visit{0}{1}(const {0}* {2}) = 0;
 """.format(type_name, base_name, base_name.lower())
         )
 
@@ -133,7 +133,7 @@ def define_ast(output_dir, base_name, types):
 """#pragma once
 
 // std
-#include <list>
+#include <memory>
 
 // lox
 #include "Object.hpp"
@@ -158,12 +158,12 @@ namespace {0}
   public:
 
     template<typename R>
-    R accept(Visitor<R>& visitor) {{
+    R accept(Visitor<R>& visitor) const {{
       do_accept(visitor);
       return visitor.result();
     }}
 
-    virtual void do_accept(VisitorBase& visitor) = 0;
+    virtual void do_accept(VisitorBase& visitor) const = 0;
   }};
 
 """.format(base_name)
