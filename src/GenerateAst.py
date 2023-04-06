@@ -164,6 +164,8 @@ namespace {0}
     }}
 
     virtual void do_accept(VisitorBase& visitor) const = 0;
+
+    virtual ~{0}() {};
   }};
 
 """.format(base_name)

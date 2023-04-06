@@ -9,6 +9,7 @@
 #include "Lox.hpp"
 
 namespace Lox {
+
 bool Runner::mHadError = false;
 
 void Runner::report(int line, std::string const& where, std::string const& message)
@@ -103,4 +104,5 @@ int Runner::runPrompt()
 
     return 0;
 }
+
 } // namespace Lox

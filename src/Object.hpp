@@ -7,6 +7,7 @@
 #include <string>
 
 namespace Lox {
+
 struct Object {
     ObjectType type;
 
@@ -50,4 +51,5 @@ struct Object {
         }
     }
 };
+
 } // namespace Lox

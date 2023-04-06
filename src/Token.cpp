@@ -6,6 +6,7 @@
 #include "Token.hpp"
 
 namespace Lox {
+
 Token::Token(TokenType type, std::string const& lexeme, Object literal, int line)
     : mType(type)
     , mLexeme(lexeme)
@@ -153,4 +154,5 @@ std::string Token::getLexeme() const
 {
     return mLexeme;
 }
+
 } // namespace Lox

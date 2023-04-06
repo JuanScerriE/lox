@@ -198,8 +198,7 @@ void Scanner::number()
     }
 
     addToken(TokenType::NUMBER,
-        Object::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str()))
-            );
+        Object::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str())));
 }
 
 char Scanner::peekNext()
@@ -234,4 +233,5 @@ bool Scanner::isAlpha(char c)
 }
 
 bool Scanner::isAlphaNumeric(char c) { return isDigit(c) || isAlpha(c); }
+
 } // namespace Lox

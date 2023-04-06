@@ -3,10 +3,10 @@
 #include <memory>
 
 // lox
-#include "Lox.hpp"
-#include "Expr.hpp"
-#include "Object.hpp"
 #include "AstPrinter.hpp"
+#include "Expr.hpp"
+#include "Lox.hpp"
+#include "Object.hpp"
 
 int main(int argc, char** argv)
 {
@@ -15,22 +15,27 @@ int main(int argc, char** argv)
     obj1->type = Lox::ObjectType::NUMBER;
     obj1->number = 123;
 
-    auto obj2 = std::make_unique<Lox::Object>(); 
-    obj2->type = Lox::ObjectType::NUMBER;
-    obj2->number = 45.67;
+    // auto obj2 = std::make_unique<Lox::Object>();
+    // obj2->type = Lox::ObjectType::NUMBER;
+    // obj2->number = 45.67;
 
-    auto expression = std::make_unique<Lox::Expr::Binary>(
-            std::make_unique<Lox::Expr::Unary>(
-                std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNil(), 1),
-                std::make_unique<Lox::Expr::Literal>(std::move(obj1))
-            ),
-            std::make_unique<Lox::Token>(
-                Lox::TokenType::STAR, "*", Lox::Object::createNil(), 1
-            ),
-            std::make_unique<Lox::Expr::Grouping>(
-                    std::make_unique<Lox::Expr::Literal>(std::move(obj2))
-                )
-            );
+    // auto expression = std::make_unique<Lox::Expr::Binary>(
+    //     std::make_unique<Lox::Expr::Unary>(
+    //         std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNil(), 1),
+    //         std::make_unique<Lox::Expr::Literal>(std::move(obj1))),
+    //     std::make_unique<Lox::Token>(
+    //         Lox::TokenType::STAR, "*", Lox::Object::createNil(), 1),
+    //     std::make_unique<Lox::Expr::Grouping>(
+    //         std::make_unique<Lox::Expr::Literal>(std::move(obj2))));
+
+    // auto expression = std::make_unique<Lox::Expr::Binary>(
+    //     std::make_unique<Lox::Expr::Literal>(std::move(obj1)),
+    //     std::make_unique<Lox::Token>(Lox::TokenType::STAR, "*", Lox::Object::createNil(), 1),
+    //     std::make_unique<Lox::Expr::Literal>(std::move(obj2)));
+
+    auto expression = std::make_unique<Lox::Expr::Unary>(
+        std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNil(), 1),
+        std::make_unique<Lox::Expr::Literal>(std::move(obj1)));
 
     Lox::AstPrinter::AstPrinter printer;
 

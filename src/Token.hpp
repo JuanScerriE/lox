@@ -8,6 +8,7 @@
 #include "TokenType.hpp"
 
 namespace Lox {
+
 class Token {
 public:
     Token(TokenType type, std::string const& lexeme, Object literal, int line);
@@ -23,4 +24,5 @@ private:
     const Object mLiteral;
     int const mLine;
 };
+
 } // namespace Lox

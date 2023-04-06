@@ -9,37 +9,39 @@ namespace Lox {
 
 namespace AstPrinter {
 
-
-std::string AstPrinter::print(const Expr::Expr* expr)
+std::string AstPrinter::print(Expr::Expr const* expr)
 {
     return expr->accept(*this);
 }
 
-
-void AstPrinter::visitBinaryExpr(const Expr::Binary* expr) {
+void AstPrinter::visitBinaryExpr(Expr::Binary const* expr)
+{
     _result = parenthesize(expr->oper->getLexeme(), expr->left.get(), expr->right.get());
 }
 
-void AstPrinter::visitGroupingExpr(const Expr::Grouping* expr) {
+void AstPrinter::visitGroupingExpr(Expr::Grouping const* expr)
+{
     _result = parenthesize("group", expr->expr.get());
 }
 
-void AstPrinter::visitLiteralExpr(const Expr::Literal* expr) {
+void AstPrinter::visitLiteralExpr(Expr::Literal const* expr)
+{
     _result = expr->value->toString();
 }
 
-void AstPrinter::visitUnaryExpr(const Expr::Unary* expr) {
+void AstPrinter::visitUnaryExpr(Expr::Unary const* expr)
+{
     _result = parenthesize(expr->oper->getLexeme(), expr->right.get());
 }
 
-std::string AstPrinter::parenthesize(const std::string& name, const Expr::Expr* left, const Expr::Expr* right)
+std::string AstPrinter::parenthesize(std::string const& name, Expr::Expr const* left, Expr::Expr const* right)
 {
     std::ostringstream stream {};
     stream << "(" << name << " " << print(left) << " " << print(right) << ")";
     return stream.str();
 }
 
-std::string AstPrinter::parenthesize(const std::string& name, const Expr::Expr* expr)
+std::string AstPrinter::parenthesize(std::string const& name, Expr::Expr const* expr)
 {
     std::ostringstream stream {};
     stream << "(" << name << " " << print(expr) << ")";

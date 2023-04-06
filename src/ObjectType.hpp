@@ -1,7 +1,11 @@
+#pragma once
+
 namespace Lox {
-  enum ObjectType {
+
+enum ObjectType {
     NIL,
     STRING,
     NUMBER,
-  };
+};
+
 } // namespace Lox
