@@ -9,9 +9,8 @@
 
 namespace Lox {
 
-namespace Expr {
-
 class Expr;
+
 class Binary;
 class Grouping;
 class Literal;
@@ -123,7 +122,5 @@ public:
     std::unique_ptr<Token> oper;
     std::unique_ptr<Expr> right;
 };
-
-} // namespace Expr
 
 } // namespace Lox

@@ -33,11 +33,11 @@ int main(int argc, char** argv)
     //     std::make_unique<Lox::Token>(Lox::TokenType::STAR, "*", Lox::Object::createNil(), 1),
     //     std::make_unique<Lox::Expr::Literal>(std::move(obj2)));
 
-    auto expression = std::make_unique<Lox::Expr::Unary>(
+    auto expression = std::make_unique<Lox::Unary>(
         std::make_unique<Lox::Token>(Lox::TokenType::MINUS, "-", Lox::Object::createNil(), 1),
-        std::make_unique<Lox::Expr::Literal>(std::move(obj1)));
+        std::make_unique<Lox::Literal>(std::move(obj1)));
 
-    Lox::AstPrinter::AstPrinter printer;
+    Lox::AstPrinter printer;
 
     std::cout << printer.print(expression.get()) << std::endl;
 
