@@ -91,8 +91,8 @@ public:
 class Literal : public Expr {
 public:
     Literal(
-        std::unique_ptr<Object> value)
-        : value(std::move(value))
+        std::unique_ptr<Object> object)
+        : object(std::move(object))
     {
     }
 
@@ -101,7 +101,7 @@ public:
         visitor.visitLiteralExpr(this);
     }
 
-    std::unique_ptr<Object> value;
+    std::unique_ptr<Object> object;
 };
 
 class Unary : public Expr {

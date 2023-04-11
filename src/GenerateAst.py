@@ -197,7 +197,7 @@ def main():
         [
             "Binary : Expr left, Token oper, Expr right",
             "Grouping : Expr expr",
-            "Literal : Object value",
+            "Literal : Object object",
             "Unary : Token oper, Expr right",
         ],
     )
