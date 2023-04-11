@@ -16,16 +16,7 @@ Scanner::Scanner(std::string const& source)
 {
 }
 
-Scanner::~Scanner()
-{
-    for (Token token : mTokens) {
-        if (token.getType() == TokenType::STRING) {
-            free(token.getLiteral().string);
-        }
-    }
-}
-
-std::list<Token> Scanner::scanTokens()
+std::vector<Token> Scanner::scanTokens()
 {
     while (!isAtEnd()) {
         // we are at the beginning of the next lexeme
@@ -35,7 +26,8 @@ std::list<Token> Scanner::scanTokens()
 
     mTokens.push_back(
         Token(TokenType::END_OF_FILE, "", Object::createNil(), mLine));
-    return mTokens;
+
+    return {mTokens.begin(), mTokens.end()};
 }
 
 bool Scanner::isAtEnd() { return mCurrent >= mSource.length(); }
@@ -174,10 +166,8 @@ void Scanner::string()
     // the closing "
     advance();
 
-    char* value = (char*)malloc(sizeof(char*) * (mCurrent - mStart));
-    value[mCurrent - mStart - 1] = 0;
-    memcpy(value, mSource.substr(mStart + 1, mCurrent - 1 - mStart - 1).c_str(),
-        mCurrent - mStart - 1);
+    // we can use substring contructor
+    std::string value (mSource, mStart + 1, mCurrent - 1 - mStart - 1);
 
     addToken(TokenType::STRING, Object::createString(value));
 }

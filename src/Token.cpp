@@ -79,10 +79,10 @@ std::ostream& operator<<(std::ostream& out, Token const& token)
         out << "IDENTIFIER " << token.mLexeme;
         break;
     case TokenType::STRING:
-        out << "STRING " << token.mLexeme << " " << token.mLiteral.string;
+        out << "STRING " << token.mLexeme << " " << token.mLiteral.toString();
         break;
     case TokenType::NUMBER:
-        out << "NUMBER " << token.mLexeme << " " << token.mLiteral.number;
+        out << "NUMBER " << token.mLexeme << " " << token.mLiteral.toString();
         break;
     case TokenType::AND:
         out << "AND " << token.mLexeme;

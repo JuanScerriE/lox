@@ -5,36 +5,25 @@
 
 // std
 #include <string>
+#include <variant>
 
 namespace Lox {
 
 struct Object {
     ObjectType type;
 
-    union {
-        // TODO: Remove char* and use std::string
-        char* string;
-        double number;
-    };
+    std::variant<std::monostate, std::string, double> value;
 
     static Object createNil() {
-        Object obj;
-        obj.type = ObjectType::NIL;
-        return obj;
+        return {ObjectType::NIL, std::monostate{}};
     }
 
-    static Object createString(char* string) {
-        Object obj;
-        obj.type = ObjectType::STRING;
-        obj.string = string;
-        return obj;
+    static Object createString(std::string string) {
+        return {ObjectType::STRING, string};
     }
 
     static Object createNumber(double number) {
-        Object obj;
-        obj.type = ObjectType::NUMBER;
-        obj.number = number;
-        return obj;
+        return {ObjectType::NUMBER, number};
     }
 
     std::string toString() const
@@ -43,9 +32,9 @@ struct Object {
         case ObjectType::NIL:
             return "nil";
         case ObjectType::NUMBER:
-            return std::to_string(number);
+            return std::to_string(std::get<double>(value));
         case ObjectType::STRING:
-            return std::string {string};
+            return std::get<std::string>(value);
         default:
             return "Undefined Object Type";
         }

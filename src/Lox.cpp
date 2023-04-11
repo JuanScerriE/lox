@@ -16,7 +16,6 @@ void Runner::report(int line, std::string const& where, std::string const& messa
 {
     std::cerr << "[line " << line << "] Error" << where << ": " << message;
     mHadError = true;
-    std::unique_ptr<Token> hello;
 }
 
 void Runner::error(int line, std::string const& message)
@@ -27,7 +26,7 @@ void Runner::error(int line, std::string const& message)
 void Runner::run(std::string const& source)
 {
     Scanner scanner(source);
-    std::list<Token> tokens = scanner.scanTokens();
+    std::vector<Token> tokens = scanner.scanTokens();
 
     for (Token const& token : tokens) {
         std::cout << token << std::endl;

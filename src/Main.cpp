@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
     auto obj1 = std::make_unique<Lox::Object>();
     obj1->type = Lox::ObjectType::NUMBER;
-    obj1->number = 123;
+    obj1->value = 123.0;
 
     // auto obj2 = std::make_unique<Lox::Object>();
     // obj2->type = Lox::ObjectType::NUMBER;
