@@ -15,6 +15,7 @@ public:
     TokenType getType();
     Object getLiteral();
     std::string getLexeme() const;
+    int getLine() const;
 
     friend std::ostream& operator<<(std::ostream& out, Token const& token);
 
