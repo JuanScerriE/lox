@@ -1,8 +1,8 @@
 namespace Lox {
-  enum ExprType {
+enum ExprType {
     LITERAL,
     UNARY,
     BINARY,
     GROUPING,
-  };
+};
 }

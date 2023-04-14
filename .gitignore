@@ -3,4 +3,5 @@ cmake-build-debug/
 venv/
 .cache/
 .idea/
+clang-format-all
 compile_commands.json

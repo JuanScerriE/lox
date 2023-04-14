@@ -27,7 +27,7 @@ std::vector<Token> Scanner::scanTokens()
     mTokens.push_back(
         Token(TokenType::END_OF_FILE, "", Object::createNil(), mLine));
 
-    return {mTokens.begin(), mTokens.end()};
+    return { mTokens.begin(), mTokens.end() };
 }
 
 bool Scanner::isAtEnd() { return mCurrent >= mSource.length(); }
@@ -167,7 +167,7 @@ void Scanner::string()
     advance();
 
     // we can use substring contructor
-    std::string value (mSource, mStart + 1, mCurrent - 1 - mStart - 1);
+    std::string value(mSource, mStart + 1, mCurrent - 1 - mStart - 1);
 
     addToken(TokenType::STRING, Object::createString(value));
 }

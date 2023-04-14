@@ -1,7 +1,7 @@
 #pragma once
 
 namespace Lox {
-  enum class TokenType {
+enum class TokenType {
     // single character tokens
     LEFT_PAREN,
     RIGHT_PAREN,
@@ -49,5 +49,5 @@ namespace Lox {
     WHILE,
 
     END_OF_FILE
-  };
+};
 } // namespace Lox

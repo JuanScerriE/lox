@@ -4,19 +4,18 @@
 
 namespace Lox {
 
-class AstPrinter : public Visitor<std::string>
-{
+class AstPrinter : public Visitor<std::string> {
 public:
-    std::string print(const Expr* expr);
+    std::string print(Expr const* expr);
 
-    void visitBinaryExpr(const Binary* expr) override;
-    void visitGroupingExpr(const Grouping* expr) override;
-    void visitLiteralExpr(const Literal* expr) override;
-    void visitUnaryExpr(const Unary* expr) override;
+    void visitBinaryExpr(Binary const* expr) override;
+    void visitGroupingExpr(Grouping const* expr) override;
+    void visitLiteralExpr(Literal const* expr) override;
+    void visitUnaryExpr(Unary const* expr) override;
 
 private:
-    std::string parenthesize(const std::string& name, const Expr* left, const Expr* right);
-    std::string parenthesize(const std::string& name, const Expr* expr);
+    std::string parenthesize(std::string const& name, Expr const* left, Expr const* right);
+    std::string parenthesize(std::string const& name, Expr const* expr);
 };
 
 } // namespace Lox
