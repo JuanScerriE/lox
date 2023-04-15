@@ -2,6 +2,7 @@
 
 // std
 #include <string>
+#include <vector>
 
 // lox
 #include "Object.hpp"
@@ -11,6 +12,7 @@ namespace Lox {
 
 class Token {
 public:
+    Token(Token const&);
     Token(TokenType type, std::string const& lexeme, Object literal, int line);
     TokenType getType();
     Object getLiteral();
@@ -18,12 +20,13 @@ public:
     int getLine() const;
 
     friend std::ostream& operator<<(std::ostream& out, Token const& token);
+    friend std::ostream& operator<<(std::ostream& out, std::vector<Token> const& token);
 
 private:
-    const TokenType mType;
-    const std::string mLexeme;
-    const Object mLiteral;
-    int const mLine;
+    TokenType mType;
+    std::string mLexeme;
+    Object mLiteral;
+    int mLine;
 };
 
 } // namespace Lox

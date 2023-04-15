@@ -24,7 +24,7 @@ void AstPrinter::visitGroupingExpr(Grouping const* expr)
 
 void AstPrinter::visitLiteralExpr(Literal const* expr)
 {
-    _result = expr->value->toString();
+    _result = expr->object->toString();
 }
 
 void AstPrinter::visitUnaryExpr(Unary const* expr)

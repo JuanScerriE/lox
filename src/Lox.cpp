@@ -6,7 +6,9 @@
 #include <memory>
 
 // lox
+#include "AstPrinter.hpp"
 #include "Lox.hpp"
+#include "Parser.hpp"
 
 namespace Lox {
 
@@ -15,7 +17,8 @@ bool Runner::mHadError = false;
 void Runner::report(int line, std::string const& where,
     std::string const& message)
 {
-    std::cerr << "[line " << line << "] Error" << where << ": " << message;
+    std::cerr << "[line " << line << "] Error" << where << ": " << message << std::endl;
+
     mHadError = true;
 }
 
@@ -36,11 +39,23 @@ void Runner::error(Token token, std::string const& message)
 void Runner::run(std::string const& source)
 {
     Scanner scanner(source);
+
     std::vector<Token> tokens = scanner.scanTokens();
 
     for (Token const& token : tokens) {
         std::cout << token << std::endl;
     }
+
+    Parser parser(tokens);
+
+    std::unique_ptr<Expr> expression = parser.parse();
+
+    if (mHadError)
+        return;
+
+    AstPrinter printer;
+
+    std::cout << printer.print(expression.get()) << std::endl;
 }
 
 int Runner::runFile(char* path)

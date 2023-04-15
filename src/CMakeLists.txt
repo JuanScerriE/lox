@@ -1,9 +1,10 @@
 add_executable(lox
-  Main.cpp
+  AstPrinter.cpp
   Lox.cpp
+  Main.cpp
+  Parser.cpp
   Scanner.cpp
   Token.cpp
-  AstPrinter.cpp
 )
 
 target_compile_options(lox PRIVATE -Wall -Wextra -Wpedantic -Werror)

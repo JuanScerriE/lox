@@ -18,7 +18,9 @@ public:
     Parser(std::vector<Token>& tokens);
 
     // TODO: maybe use std::runtime_error
-    class ParserError : std::exception { };
+    class Error : std::exception { };
+
+    std::unique_ptr<Expr> parse();
 
 private:
     std::unique_ptr<Expr> expression();
@@ -36,12 +38,12 @@ private:
     bool isAtEnd();
     Token peek();
     Token previous();
-    ParserError error(Token token, std::string message);
+    Error error(Token token, std::string message);
     void synchronize();
 
     std::vector<Token>& mTokens;
 
-    int mCurrent;
+    int mCurrent = 0;
 };
 
 } // namespace Lox

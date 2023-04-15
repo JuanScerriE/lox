@@ -1,6 +1,9 @@
 #include "Parser.hpp"
 #include "Lox.hpp"
 
+// std
+#include <iostream>
+
 namespace Lox {
 
 Parser::Parser(std::vector<Token>& tokens)
@@ -8,7 +11,19 @@ Parser::Parser(std::vector<Token>& tokens)
 {
 }
 
-std::unique_ptr<Expr> Parser::expression() { return equality(); }
+std::unique_ptr<Expr> Parser::parse()
+{
+    try {
+        return expression();
+    } catch (Error& error) {
+        return nullptr;
+    }
+}
+
+std::unique_ptr<Expr> Parser::expression()
+{
+    return equality();
+}
 
 std::unique_ptr<Expr> Parser::equality()
 {
@@ -94,13 +109,12 @@ std::unique_ptr<Expr> Parser::primary()
     if (match({ TokenType::LEFT_PAREN })) {
         std::unique_ptr<Expr> expr = expression();
 
-        // TODO: continue from page 90
         consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
 
         return std::make_unique<Grouping>(std::move(expr));
     }
 
-    return nullptr;
+    throw error(peek(), "Expect expression.");
 }
 
 Token Parser::consume(TokenType type, std::string message)
@@ -117,15 +131,17 @@ bool Parser::match(std::vector<TokenType> types)
     for (TokenType type : types) {
         if (check(type)) {
             advance();
+
             return true;
         }
     }
+
     return false;
 }
 
 bool Parser::check(TokenType type)
 {
-    if (!isAtEnd()) {
+    if (isAtEnd()) {
         return false;
     }
 
@@ -134,8 +150,10 @@ bool Parser::check(TokenType type)
 
 Token Parser::advance()
 {
-    if (!isAtEnd())
+    if (!isAtEnd()) {
         mCurrent++;
+    }
+
     return previous();
 }
 
@@ -145,11 +163,11 @@ Token Parser::peek() { return mTokens[mCurrent]; }
 
 Token Parser::previous() { return mTokens[mCurrent - 1]; }
 
-Parser::ParserError Parser::error(Token token, std::string message)
+Parser::Error Parser::error(Token token, std::string message)
 {
     Runner::error(token, message);
 
-    return ParserError();
+    return Error();
 }
 
 void Parser::synchronize()

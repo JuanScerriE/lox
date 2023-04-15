@@ -16,6 +16,14 @@ Token::Token(TokenType type, std::string const& lexeme, Object literal,
 {
 }
 
+Token::Token(Token const& token)
+{
+    mType = token.mType;
+    mLine = token.mLine;
+    mLiteral = token.mLiteral;
+    mLexeme = token.mLexeme;
+}
+
 std::ostream& operator<<(std::ostream& out, Token const& token)
 {
     switch (token.mType) {
@@ -137,6 +145,19 @@ std::ostream& operator<<(std::ostream& out, Token const& token)
         out << "END_OF_FILE " << token.mLexeme;
         break;
     }
+
+    return out;
+}
+
+std::ostream& operator<<(std::ostream& out, std::vector<Token> const& tokens)
+{
+    out << "[ ";
+
+    for (auto& token : tokens) {
+        out << "{ " << token << " }, ";
+    }
+
+    out << "]";
 
     return out;
 }
