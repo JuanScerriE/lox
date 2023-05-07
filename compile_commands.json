@@ -1,32 +1,38 @@
 [
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Main.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/Main.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/Main.cpp",
-  "output": "src/CMakeFiles/lox.dir/Main.cpp.o"
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/AstPrinter.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/AstPrinter.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/AstPrinter.cpp",
+  "output": "src/CMakeFiles/lox.dir/AstPrinter.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/Lox.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/Lox.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Lox.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Lox.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Lox.cpp",
   "output": "src/CMakeFiles/lox.dir/Lox.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/Scanner.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/Scanner.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Main.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Main.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Main.cpp",
+  "output": "src/CMakeFiles/lox.dir/Main.cpp.o"
+},
+{
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Parser.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Parser.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Parser.cpp",
+  "output": "src/CMakeFiles/lox.dir/Parser.cpp.o"
+},
+{
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Scanner.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Scanner.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Scanner.cpp",
   "output": "src/CMakeFiles/lox.dir/Scanner.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Token.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/Token.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/Token.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/cpplox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Token.cpp.o -c /Users/juan/Desktop/documents/computer-science/cpplox/src/Token.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/cpplox/src/Token.cpp",
   "output": "src/CMakeFiles/lox.dir/Token.cpp.o"
-},
-{
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build/linux-debug",
-  "command": "/usr/bin/c++ -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/AstPrinter.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/AstPrinter.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/AstPrinter.cpp",
-  "output": "src/CMakeFiles/lox.dir/AstPrinter.cpp.o"
 }
 ]
