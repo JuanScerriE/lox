@@ -4,9 +4,10 @@
 #include <string>
 
 // lox
-#include "Scanner.hpp"
+#include "../common/Token.hpp"
 
 namespace Lox {
+
 class Runner {
 public:
     static int runFile(char* path);

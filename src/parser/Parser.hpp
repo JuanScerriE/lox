@@ -7,9 +7,8 @@
 #include <vector>
 
 // lox
-#include "Expr.hpp"
-#include "Token.hpp"
-#include "TokenType.hpp"
+#include "../common/Expr.hpp"
+#include "../common/Token.hpp"
 
 namespace Lox {
 
@@ -31,9 +30,9 @@ private:
     std::unique_ptr<Expr> unary();
     std::unique_ptr<Expr> primary();
 
-    bool match(std::vector<TokenType> types);
-    Token consume(TokenType type, std::string message);
-    bool check(TokenType type);
+    bool match(std::vector<Token::Type> types);
+    Token consume(Token::Type type, std::string message);
+    bool check(Token::Type type);
     Token advance();
     bool isAtEnd();
     Token peek();

@@ -3,10 +3,9 @@
 #include <memory>
 
 // lox
-#include "AstPrinter.hpp"
-#include "Expr.hpp"
-#include "Lox.hpp"
-#include "Object.hpp"
+#include "runner/Runner.hpp"
+
+namespace Lox {
 
 int main(int argc, char** argv)
 {
@@ -15,8 +14,10 @@ int main(int argc, char** argv)
 
         return 64;
     } else if (argc == 2) {
-        return Lox::Runner::runFile(argv[1]);
+        return Runner::runFile(argv[1]);
     } else {
-        return Lox::Runner::runPrompt();
+        return Runner::runPrompt();
     }
 }
+
+} // namespace Lox

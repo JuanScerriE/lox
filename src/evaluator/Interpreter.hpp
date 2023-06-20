@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Object.hpp"
 #include "Expr.hpp"
+#include "Object.hpp"
 
 namespace Lox {
 

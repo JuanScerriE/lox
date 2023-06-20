@@ -24,6 +24,7 @@ void AstPrinter::visitGroupingExpr(Grouping const* expr)
 
 void AstPrinter::visitLiteralExpr(Literal const* expr)
 {
+    // TODO: does not properly handle boolean
     _result = expr->object->toString();
 }
 

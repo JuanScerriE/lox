@@ -4,8 +4,8 @@
 #include <memory>
 
 // lox
-#include "Object.hpp"
-#include "Token.hpp"
+#include "../common/Token.hpp"
+#include "../common/Value.hpp"
 
 namespace Lox {
 
@@ -38,6 +38,13 @@ protected:
 
 class Expr {
 public:
+    enum ExprType {
+        LITERAL,
+        UNARY,
+        BINARY,
+        GROUPING,
+    };
+
     template<typename R>
     R accept(Visitor<R>& visitor) const
     {
@@ -91,7 +98,7 @@ public:
 class Literal : public Expr {
 public:
     Literal(
-        std::unique_ptr<Object> object)
+        std::unique_ptr<Value> object)
         : object(std::move(object))
     {
     }
@@ -101,7 +108,7 @@ public:
         visitor.visitLiteralExpr(this);
     }
 
-    std::unique_ptr<Object> object;
+    std::unique_ptr<Value> object;
 };
 
 class Unary : public Expr {

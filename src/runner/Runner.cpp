@@ -6,9 +6,10 @@
 #include <memory>
 
 // lox
-#include "AstPrinter.hpp"
-#include "Lox.hpp"
-#include "Parser.hpp"
+#include "../parser/Parser.hpp"
+#include "../printer/AstPrinter.hpp"
+#include "../scanner/Scanner.hpp"
+#include "Runner.hpp"
 
 namespace Lox {
 
@@ -29,7 +30,7 @@ void Runner::error(int line, std::string const& message)
 
 void Runner::error(Token token, std::string const& message)
 {
-    if (token.getType() == TokenType::END_OF_FILE) {
+    if (token.getType() == Token::Type::END_OF_FILE) {
         report(token.getLine(), " at end", message);
     } else {
         report(token.getLine(), " at '" + token.getLexeme() + "'", message);

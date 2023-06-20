@@ -5,9 +5,9 @@
 #include <vector>
 
 // lox
-#include "Lox.hpp"
+#include "../common/Token.hpp"
+#include "../runner/Runner.hpp"
 #include "Scanner.hpp"
-#include "TokenType.hpp"
 
 namespace Lox {
 
@@ -19,13 +19,13 @@ Scanner::Scanner(std::string const& source)
 std::vector<Token> Scanner::scanTokens()
 {
     while (!isAtEnd()) {
-        // we are at the beginning of the next lexeme
+        // We are at the beginning of the next lexeme
         mStart = mCurrent;
         scanToken();
     }
 
     mTokens.push_back(
-        Token(TokenType::END_OF_FILE, "", Object::createNil(), mLine));
+        Token(Token::Type::END_OF_FILE, "", Value::createNil(), mLine));
 
     return { mTokens.begin(), mTokens.end() };
 }
@@ -38,46 +38,46 @@ void Scanner::scanToken()
 
     switch (c) {
     case '(':
-        addToken(TokenType::LEFT_PAREN);
+        addToken(Token::Type::LEFT_PAREN);
         break;
     case ')':
-        addToken(TokenType::RIGHT_PAREN);
+        addToken(Token::Type::RIGHT_PAREN);
         break;
     case '{':
-        addToken(TokenType::LEFT_BRACE);
+        addToken(Token::Type::LEFT_BRACE);
         break;
     case '}':
-        addToken(TokenType::RIGHT_BRACE);
+        addToken(Token::Type::RIGHT_BRACE);
         break;
     case '.':
-        addToken(TokenType::DOT);
+        addToken(Token::Type::DOT);
         break;
     case ',':
-        addToken(TokenType::COMMA);
+        addToken(Token::Type::COMMA);
         break;
     case ';':
-        addToken(TokenType::SEMICOLON);
+        addToken(Token::Type::SEMICOLON);
         break;
     case '+':
-        addToken(TokenType::PLUS);
+        addToken(Token::Type::PLUS);
         break;
     case '-':
-        addToken(TokenType::MINUS);
+        addToken(Token::Type::MINUS);
         break;
     case '*':
-        addToken(TokenType::STAR);
+        addToken(Token::Type::STAR);
         break;
     case '!':
-        addToken(match('=') ? TokenType::BANG_EQUAL : TokenType::BANG);
+        addToken(match('=') ? Token::Type::BANG_EQUAL : Token::Type::BANG);
         break;
     case '=':
-        addToken(match('=') ? TokenType::EQUAL_EQUAL : TokenType::EQUAL);
+        addToken(match('=') ? Token::Type::EQUAL_EQUAL : Token::Type::EQUAL);
         break;
     case '<':
-        addToken(match('=') ? TokenType::LESS_EQUAL : TokenType::LESS);
+        addToken(match('=') ? Token::Type::LESS_EQUAL : Token::Type::LESS);
         break;
     case '>':
-        addToken(match('=') ? TokenType::GREATER_EQUAL : TokenType::GREATER);
+        addToken(match('=') ? Token::Type::GREATER_EQUAL : Token::Type::GREATER);
         break;
     case '/':
         if (match('/')) {
@@ -85,13 +85,13 @@ void Scanner::scanToken()
                 advance();
             }
         } else {
-            addToken(TokenType::SLASH);
+            addToken(Token::Type::SLASH);
         }
         break;
     case ' ':
     case '\r':
     case '\t':
-        // ignore whitespace
+        // Ignore whitespace
         break;
     case '\n':
         mLine++;
@@ -113,12 +113,12 @@ void Scanner::scanToken()
 
 char Scanner::advance() { return mSource[mCurrent++]; }
 
-void Scanner::addToken(TokenType type)
+void Scanner::addToken(Token::Type type)
 {
-    addToken(type, Object::createNil());
+    addToken(type, Value::createNil());
 }
 
-void Scanner::addToken(TokenType type, Object literal)
+void Scanner::addToken(Token::Type type, Value literal)
 {
     mTokens.push_back(
         Token(type, mSource.substr(mStart, mCurrent - mStart), literal, mLine));
@@ -169,7 +169,7 @@ void Scanner::string()
     // we can use substring contructor
     std::string value(mSource, mStart + 1, mCurrent - 1 - mStart - 1);
 
-    addToken(TokenType::STRING, Object::createString(value));
+    addToken(Token::Type::STRING, Value::createString(value));
 }
 
 void Scanner::number()
@@ -187,8 +187,8 @@ void Scanner::number()
         }
     }
 
-    addToken(TokenType::NUMBER,
-        Object::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str())));
+    addToken(Token::Type::NUMBER,
+        Value::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str())));
 }
 
 char Scanner::peekNext()
@@ -211,7 +211,7 @@ void Scanner::identifier()
     try {
         addToken(keywords.at(text));
     } catch (std::exception& ex) {
-        addToken(TokenType::IDENTIFIER);
+        addToken(Token::Type::IDENTIFIER);
     }
 }
 

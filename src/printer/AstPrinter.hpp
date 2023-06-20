@@ -1,6 +1,10 @@
-// lox
-#include "Expr.hpp"
+#pragma once
+
+// std
 #include <string>
+
+// lox
+#include "../common/Expr.hpp"
 
 namespace Lox {
 

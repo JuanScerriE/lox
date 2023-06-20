@@ -1,5 +1,5 @@
 #include "Parser.hpp"
-#include "Lox.hpp"
+#include "../runner/Runner.hpp"
 
 // std
 #include <iostream>
@@ -29,7 +29,7 @@ std::unique_ptr<Expr> Parser::equality()
 {
     std::unique_ptr<Expr> expr = comparison();
 
-    while (match({ TokenType::BANG_EQUAL, TokenType::EQUAL_EQUAL })) {
+    while (match({ Token::Type::BANG_EQUAL, Token::Type::EQUAL_EQUAL })) {
         std::unique_ptr<Token> oper = std::make_unique<Token>(previous());
         std::unique_ptr<Expr> right = comparison();
 
@@ -44,8 +44,8 @@ std::unique_ptr<Expr> Parser::comparison()
 {
     std::unique_ptr<Expr> expr = term();
 
-    while (match({ TokenType::GREATER, TokenType::GREATER_EQUAL, TokenType::LESS,
-        TokenType::LESS_EQUAL })) {
+    while (match({ Token::Type::GREATER, Token::Type::GREATER_EQUAL, Token::Type::LESS,
+        Token::Type::LESS_EQUAL })) {
         std::unique_ptr<Token> oper = std::make_unique<Token>(previous());
         std::unique_ptr<Expr> right = term();
 
@@ -60,7 +60,7 @@ std::unique_ptr<Expr> Parser::term()
 {
     std::unique_ptr<Expr> expr = factor();
 
-    while (match({ TokenType::MINUS, TokenType::PLUS })) {
+    while (match({ Token::Type::MINUS, Token::Type::PLUS })) {
         std::unique_ptr<Token> oper = std::make_unique<Token>(previous());
         std::unique_ptr<Expr> right = factor();
 
@@ -75,7 +75,7 @@ std::unique_ptr<Expr> Parser::factor()
 {
     std::unique_ptr<Expr> expr = unary();
 
-    while (match({ TokenType::SLASH, TokenType::STAR })) {
+    while (match({ Token::Type::SLASH, Token::Type::STAR })) {
         std::unique_ptr<Token> oper = std::make_unique<Token>(previous());
         std::unique_ptr<Expr> right = unary();
 
@@ -88,7 +88,7 @@ std::unique_ptr<Expr> Parser::factor()
 
 std::unique_ptr<Expr> Parser::unary()
 {
-    while (match({ TokenType::BANG, TokenType::MINUS })) {
+    while (match({ Token::Type::BANG, Token::Type::MINUS })) {
         std::unique_ptr<Token> oper = std::make_unique<Token>(previous());
         std::unique_ptr<Expr> right = unary();
 
@@ -100,16 +100,16 @@ std::unique_ptr<Expr> Parser::unary()
 
 std::unique_ptr<Expr> Parser::primary()
 {
-    if (match({ TokenType::FALSE, TokenType::TRUE, TokenType::NUMBER,
-            TokenType::STRING })) {
+    if (match({ Token::Type::FALSE, Token::Type::TRUE, Token::Type::NUMBER,
+            Token::Type::STRING })) {
         return std::make_unique<Literal>(
-            std::make_unique<Object>(previous().getLiteral()));
+            std::make_unique<Value>(previous().getLiteral()));
     }
 
-    if (match({ TokenType::LEFT_PAREN })) {
+    if (match({ Token::Type::LEFT_PAREN })) {
         std::unique_ptr<Expr> expr = expression();
 
-        consume(TokenType::RIGHT_PAREN, "Expect ')' after expression.");
+        consume(Token::Type::RIGHT_PAREN, "Expect ')' after expression.");
 
         return std::make_unique<Grouping>(std::move(expr));
     }
@@ -117,7 +117,7 @@ std::unique_ptr<Expr> Parser::primary()
     throw error(peek(), "Expect expression.");
 }
 
-Token Parser::consume(TokenType type, std::string message)
+Token Parser::consume(Token::Type type, std::string message)
 {
     if (check(type)) {
         return advance();
@@ -126,9 +126,9 @@ Token Parser::consume(TokenType type, std::string message)
     throw error(peek(), message);
 }
 
-bool Parser::match(std::vector<TokenType> types)
+bool Parser::match(std::vector<Token::Type> types)
 {
-    for (TokenType type : types) {
+    for (Token::Type type : types) {
         if (check(type)) {
             advance();
 
@@ -139,7 +139,7 @@ bool Parser::match(std::vector<TokenType> types)
     return false;
 }
 
-bool Parser::check(TokenType type)
+bool Parser::check(Token::Type type)
 {
     if (isAtEnd()) {
         return false;
@@ -157,7 +157,7 @@ Token Parser::advance()
     return previous();
 }
 
-bool Parser::isAtEnd() { return peek().getType() == TokenType::END_OF_FILE; }
+bool Parser::isAtEnd() { return peek().getType() == Token::Type::END_OF_FILE; }
 
 Token Parser::peek() { return mTokens[mCurrent]; }
 
@@ -175,20 +175,20 @@ void Parser::synchronize()
     advance();
 
     while (!isAtEnd()) {
-        if (previous().getType() == TokenType::SEMICOLON)
+        if (previous().getType() == Token::Type::SEMICOLON)
             return;
 
         switch (peek().getType()) {
-        case TokenType::CLASS:
-        case TokenType::FUN:
-        case TokenType::VAR:
-        case TokenType::FOR:
-        case TokenType::IF:
-        case TokenType::WHILE:
-        case TokenType::PRINT:
-        case TokenType::RETURN:
+        case Token::Type::CLASS:
+        case Token::Type::FUN:
+        case Token::Type::VAR:
+        case Token::Type::FOR:
+        case Token::Type::IF:
+        case Token::Type::WHILE:
+        case Token::Type::PRINT:
+        case Token::Type::RETURN:
             return;
-        default:; // do nothing
+        default:; // Do nothing
         }
 
         advance();
