@@ -2,8 +2,8 @@
 #include <iostream>
 
 // lox
-#include "Token.hpp"
-#include "Value.hpp"
+#include <common/Token.hpp>
+#include <common/Value.hpp>
 
 namespace Lox {
 

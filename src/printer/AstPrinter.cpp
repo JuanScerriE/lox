@@ -3,7 +3,7 @@
 #include <string>
 
 // lox
-#include "AstPrinter.hpp"
+#include <printer/AstPrinter.hpp>
 
 namespace Lox {
 

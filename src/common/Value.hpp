@@ -17,11 +17,34 @@ struct Value {
 
     std::variant<std::monostate, std::string, double> value;
 
-    static Value createNil();
-    static Value createString(std::string string);
-    static Value createNumber(double number);
+    static Value createNil()
+    {
+        return { Type::NIL, std::monostate {} };
+    }
 
-    std::string toString() const;
+    static Value createString(std::string string)
+    {
+        return { Type::STRING, string };
+    }
+
+    static Value createNumber(double number)
+    {
+        return { Type::NUMBER, number };
+    }
+
+    std::string toString() const
+    {
+        switch (type) {
+        case Type::NIL:
+            return "nil";
+        case Type::NUMBER:
+            return std::to_string(std::get<double>(value));
+        case Type::STRING:
+            return std::get<std::string>(value);
+        default:
+            return "Undefined Value Type";
+        }
+    }
 };
 
 } // namespace Lox

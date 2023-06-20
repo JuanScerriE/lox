@@ -5,9 +5,9 @@
 #include <vector>
 
 // lox
-#include "../common/Token.hpp"
-#include "../runner/Runner.hpp"
-#include "Scanner.hpp"
+#include <common/Token.hpp>
+#include <runner/Runner.hpp>
+#include <scanner/Scanner.hpp>
 
 namespace Lox {
 

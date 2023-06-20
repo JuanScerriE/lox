@@ -1,5 +1,5 @@
 // lox
-#include "Value.hpp"
+#include <common/Value.hpp>
 
 namespace Lox {
 

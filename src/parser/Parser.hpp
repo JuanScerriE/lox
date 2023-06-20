@@ -7,8 +7,8 @@
 #include <vector>
 
 // lox
-#include "../common/Expr.hpp"
-#include "../common/Token.hpp"
+#include <common/Expr.hpp>
+#include <common/Token.hpp>
 
 namespace Lox {
 

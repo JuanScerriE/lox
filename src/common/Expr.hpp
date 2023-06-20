@@ -4,8 +4,8 @@
 #include <memory>
 
 // lox
-#include "../common/Token.hpp"
-#include "../common/Value.hpp"
+#include <common/Token.hpp>
+#include <common/Value.hpp>
 
 namespace Lox {
 

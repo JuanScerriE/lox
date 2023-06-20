@@ -4,7 +4,7 @@
 #include <string>
 
 // lox
-#include "../common/Token.hpp"
+#include <common/Token.hpp>
 
 namespace Lox {
 

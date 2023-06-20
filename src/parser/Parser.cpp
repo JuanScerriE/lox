@@ -1,8 +1,10 @@
-#include "Parser.hpp"
-#include "../runner/Runner.hpp"
 
 // std
 #include <iostream>
+
+// lox
+#include <parser/Parser.hpp>
+#include <runner/Runner.hpp>
 
 namespace Lox {
 

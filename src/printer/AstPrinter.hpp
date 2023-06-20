@@ -4,7 +4,7 @@
 #include <string>
 
 // lox
-#include "../common/Expr.hpp"
+#include <common/Expr.hpp>
 
 namespace Lox {
 

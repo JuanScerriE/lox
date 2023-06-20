@@ -6,10 +6,10 @@
 #include <memory>
 
 // lox
-#include "../parser/Parser.hpp"
-#include "../printer/AstPrinter.hpp"
-#include "../scanner/Scanner.hpp"
-#include "Runner.hpp"
+#include <parser/Parser.hpp>
+#include <printer/AstPrinter.hpp>
+#include <runner/Runner.hpp>
+#include <scanner/Scanner.hpp>
 
 namespace Lox {
 
