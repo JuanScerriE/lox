@@ -115,7 +115,16 @@ char Scanner::advance() { return mSource[mCurrent++]; }
 
 void Scanner::addToken(Token::Type type)
 {
-    addToken(type, Value::createNil());
+    switch (type) {
+        case Token::Type::TRUE:
+            addToken(type, Value::createBool(true));
+            break;
+        case Token::Type::FALSE:
+            addToken(type, Value::createBool(false));
+            break;
+        default:
+            addToken(type, Value::createNil());
+    }
 }
 
 void Scanner::addToken(Token::Type type, Value literal)

@@ -1,6 +1,7 @@
 #pragma once
 
 // std
+#include <any>
 #include <memory>
 
 // lox
@@ -16,45 +17,61 @@ class Grouping;
 class Literal;
 class Unary;
 
-class VisitorBase {
+class Visitor {
 public:
-    virtual void visitBinaryExpr(Binary const* expr) = 0;
-    virtual void visitGroupingExpr(Grouping const* expr) = 0;
-    virtual void visitLiteralExpr(Literal const* expr) = 0;
-    virtual void visitUnaryExpr(Unary const* expr) = 0;
-};
-
-template<typename R>
-class Visitor : public VisitorBase {
-public:
-    R result() const
-    {
-        return _result;
-    }
-
-protected:
-    R _result;
+    virtual std::any visitBinaryExpr(Binary const* expr) = 0;
+    virtual std::any visitGroupingExpr(Grouping const* expr) = 0;
+    virtual std::any visitLiteralExpr(Literal const* expr) = 0;
+    virtual std::any visitUnaryExpr(Unary const* expr) = 0;
 };
 
 class Expr {
 public:
-    enum ExprType {
+    enum Type {
         LITERAL,
         UNARY,
         BINARY,
         GROUPING,
     };
 
-    template<typename R>
-    R accept(Visitor<R>& visitor) const
-    {
-        do_accept(visitor);
-        return visitor.result();
-    }
-
-    virtual void do_accept(VisitorBase& visitor) const = 0;
+    virtual std::any accept(Visitor& visitor) const = 0;
 
     virtual ~Expr() {};
+};
+
+class Literal : public Expr {
+public:
+    Literal(
+        std::unique_ptr<Value> value)
+        : value(std::move(value))
+    {
+    }
+
+    std::any accept(Visitor& visitor) const override
+    {
+        return visitor.visitLiteralExpr(this);
+    }
+
+    std::unique_ptr<Value> value;
+};
+
+class Unary : public Expr {
+public:
+    Unary(
+        std::unique_ptr<Token> oper,
+        std::unique_ptr<Expr> right)
+        : oper(std::move(oper))
+        , right(std::move(right))
+    {
+    }
+
+    std::any accept(Visitor& visitor) const override
+    {
+        return visitor.visitUnaryExpr(this);
+    }
+
+    std::unique_ptr<Token> oper;
+    std::unique_ptr<Expr> right;
 };
 
 class Binary : public Expr {
@@ -69,9 +86,9 @@ public:
     {
     }
 
-    void do_accept(VisitorBase& visitor) const override
+    std::any accept(Visitor& visitor) const override
     {
-        visitor.visitBinaryExpr(this);
+        return visitor.visitBinaryExpr(this);
     }
 
     std::unique_ptr<Expr> left;
@@ -87,47 +104,12 @@ public:
     {
     }
 
-    void do_accept(VisitorBase& visitor) const override
+    std::any accept(Visitor& visitor) const override
     {
-        visitor.visitGroupingExpr(this);
+        return visitor.visitGroupingExpr(this);
     }
 
     std::unique_ptr<Expr> expr;
-};
-
-class Literal : public Expr {
-public:
-    Literal(
-        std::unique_ptr<Value> object)
-        : object(std::move(object))
-    {
-    }
-
-    void do_accept(VisitorBase& visitor) const override
-    {
-        visitor.visitLiteralExpr(this);
-    }
-
-    std::unique_ptr<Value> object;
-};
-
-class Unary : public Expr {
-public:
-    Unary(
-        std::unique_ptr<Token> oper,
-        std::unique_ptr<Expr> right)
-        : oper(std::move(oper))
-        , right(std::move(right))
-    {
-    }
-
-    void do_accept(VisitorBase& visitor) const override
-    {
-        visitor.visitUnaryExpr(this);
-    }
-
-    std::unique_ptr<Token> oper;
-    std::unique_ptr<Expr> right;
 };
 
 } // namespace Lox

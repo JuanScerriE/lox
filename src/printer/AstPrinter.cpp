@@ -9,28 +9,27 @@ namespace Lox {
 
 std::string AstPrinter::print(Expr const* expr)
 {
-    return expr->accept(*this);
+    return std::any_cast<std::string>(expr->accept(*this));
 }
 
-void AstPrinter::visitBinaryExpr(Binary const* expr)
+std::any AstPrinter::visitBinaryExpr(Binary const* expr)
 {
-    _result = parenthesize(expr->oper->getLexeme(), expr->left.get(), expr->right.get());
+    return parenthesize(expr->oper->getLexeme(), expr->left.get(), expr->right.get());
 }
 
-void AstPrinter::visitGroupingExpr(Grouping const* expr)
+std::any AstPrinter::visitGroupingExpr(Grouping const* expr)
 {
-    _result = parenthesize("group", expr->expr.get());
+    return parenthesize("group", expr->expr.get());
 }
 
-void AstPrinter::visitLiteralExpr(Literal const* expr)
+std::any AstPrinter::visitLiteralExpr(Literal const* expr)
 {
-    // TODO: does not properly handle boolean
-    _result = expr->object->toString();
+    return expr->value->toString();
 }
 
-void AstPrinter::visitUnaryExpr(Unary const* expr)
+std::any AstPrinter::visitUnaryExpr(Unary const* expr)
 {
-    _result = parenthesize(expr->oper->getLexeme(), expr->right.get());
+    return parenthesize(expr->oper->getLexeme(), expr->right.get());
 }
 
 std::string AstPrinter::parenthesize(std::string const& name, Expr const* left, Expr const* right)

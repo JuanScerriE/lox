@@ -1,17 +1,19 @@
 #pragma once
 
-#include "Expr.hpp"
-#include "Object.hpp"
+#include <common/Expr.hpp>
+#include <common/Value.hpp>
 
 namespace Lox {
 
-class Interpreter : public Visitor<Object> {
-
+class Interpreter : public Visitor {
 public:
-    void visitLiteralExpr(Literal const* value) override;
-    void visitGroupingExpr(Grouping const* value) override;
-    void visitBinaryExpr(Binary const* value) override;
-    void visitUnaryExpr(Unary const* value) override;
+    Value eval(Expr const* expr);
+
+private:
+    std::any visitLiteralExpr(Literal const* expr) override;
+    std::any visitGroupingExpr(Grouping const* expr) override;
+    std::any visitBinaryExpr(Binary const* expr) override;
+    std::any visitUnaryExpr(Unary const* expr) override;
 };
 
 } // namespace Lox
