@@ -1,5 +1,3 @@
-enable_testing()
-
 add_library(lox_lib STATIC
     runner/Runner.cpp
     parser/Parser.cpp
@@ -11,12 +9,18 @@ add_library(lox_lib STATIC
 target_compile_options(lox_lib PRIVATE -Wall -Wextra -Wpedantic -Werror)
 target_include_directories(lox_lib PUBLIC .)
 
+#---------------------------------
+
 add_executable(lox
     Main.cpp
 )
 
 target_compile_options(lox PRIVATE -Wall -Wextra -Wpedantic -Werror)
 target_link_libraries(lox PRIVATE lox_lib)
+
+#---------------------------------
+
+enable_testing()
 
 add_executable(lox_tests
     tests/Tests.cpp
