@@ -1,4 +1,8 @@
+// gtest
 #include <gtest/gtest.h>
+
+// lox
+#include <scanner/Scanner.hpp>
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {
