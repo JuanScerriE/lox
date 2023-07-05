@@ -6,6 +6,7 @@
 #include <memory>
 
 // lox
+#include <evaluator/Interpreter.hpp>
 #include <parser/Parser.hpp>
 #include <printer/AstPrinter.hpp>
 #include <runner/Runner.hpp>
@@ -57,6 +58,14 @@ void Runner::run(std::string const& source)
     AstPrinter printer;
 
     std::cout << printer.print(expression.get()) << std::endl;
+
+    Interpreter interpreter;
+
+    try {
+        std::cout << "Eval: " << interpreter.eval(expression.get()).toString() << std::endl;
+    } catch (std::exception& e) {
+        std::cout << e.what() << std::endl;
+    }
 }
 
 int Runner::runFile(char* path)
