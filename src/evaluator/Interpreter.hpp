@@ -14,6 +14,10 @@ private:
     std::any visitGroupingExpr(Grouping const* expr) override;
     std::any visitBinaryExpr(Binary const* expr) override;
     std::any visitUnaryExpr(Unary const* expr) override;
+
+    bool isTruthy(Value& value) const;
+    bool isEqual(Value& value1, Value& value2) const;
+    void checkNumberOperand(Token& exprOperator, Value& operand) const;
 };
 
 } // namespace Lox
