@@ -1,74 +1,74 @@
 [
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/include -I/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/include -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
-  "file": "/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/include -I/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/include -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest -g -std=c++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk  -DGTEST_HAS_PTHREAD=1   -o _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
   "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock.dir/src/gmock-all.cc.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/include -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/include -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
-  "file": "/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/include -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/include -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest -g -std=c++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk  -DGTEST_HAS_PTHREAD=1   -o _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
   "output": "_deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/src/gmock_main.cc.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/include -I/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/src/gtest-all.cc",
-  "file": "/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/include -I/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest -g -std=c++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk  -DGTEST_HAS_PTHREAD=1   -o _deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/src/gtest-all.cc",
   "output": "_deps/googletest-build/googletest/CMakeFiles/gtest.dir/src/gtest-all.cc.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/include -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest -g -std=c++17 -Wall -Wshadow -Wundef -Wno-error=dangling-else -DGTEST_HAS_PTHREAD=1 -fexceptions -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/src/gtest_main.cc",
-  "file": "/home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/include -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest -g -std=c++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk  -DGTEST_HAS_PTHREAD=1   -o _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/src/gtest_main.cc",
   "output": "_deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/runner/Runner.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/runner/Runner.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/runner/Runner.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/runner/Runner.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/runner/Runner.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/runner/Runner.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/runner/Runner.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/evaluator/Interpreter.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/evaluator/Interpreter.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/evaluator/Interpreter.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/evaluator/Interpreter.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/evaluator/Interpreter.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/evaluator/Interpreter.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/evaluator/Interpreter.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/parser/Parser.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/parser/Parser.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/parser/Parser.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/parser/Parser.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/parser/Parser.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/parser/Parser.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/parser/Parser.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/scanner/Scanner.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/scanner/Scanner.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/scanner/Scanner.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/scanner/Scanner.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/scanner/Scanner.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/scanner/Scanner.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/scanner/Scanner.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/common/Token.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/common/Token.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/common/Token.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/common/Token.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/common/Token.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/common/Token.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/common/Token.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox_lib.dir/printer/AstPrinter.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/printer/AstPrinter.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/printer/AstPrinter.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_lib.dir/printer/AstPrinter.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/printer/AstPrinter.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/printer/AstPrinter.cpp",
   "output": "src/CMakeFiles/lox_lib.dir/printer/AstPrinter.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -g -std=gnu++17 -Wall -Wextra -Wpedantic -Werror -o src/CMakeFiles/lox.dir/Main.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/Main.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/Main.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox.dir/Main.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/Main.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/Main.cpp",
   "output": "src/CMakeFiles/lox.dir/Main.cpp.o"
 },
 {
-  "directory": "/home/juan/Desktop/uni/compsci/lox/build",
-  "command": "/usr/bin/c++ -I/home/juan/Desktop/uni/compsci/lox/src/. -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest/include -isystem /home/juan/Desktop/uni/compsci/lox/build/_deps/googletest-src/googletest -g -std=gnu++17 -o src/CMakeFiles/lox_tests.dir/tests/Tests.cpp.o -c /home/juan/Desktop/uni/compsci/lox/src/tests/Tests.cpp",
-  "file": "/home/juan/Desktop/uni/compsci/lox/src/tests/Tests.cpp",
+  "directory": "/Users/juan/Desktop/documents/computer-science/lox/build",
+  "command": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ -I/Users/juan/Desktop/documents/computer-science/lox/src/. -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest/include -isystem /Users/juan/Desktop/documents/computer-science/lox/build/_deps/googletest-src/googletest -g -std=gnu++17 -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -o src/CMakeFiles/lox_tests.dir/tests/Tests.cpp.o -c /Users/juan/Desktop/documents/computer-science/lox/src/tests/Tests.cpp",
+  "file": "/Users/juan/Desktop/documents/computer-science/lox/src/tests/Tests.cpp",
   "output": "src/CMakeFiles/lox_tests.dir/tests/Tests.cpp.o"
 }
 ]

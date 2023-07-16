@@ -105,7 +105,7 @@ void Scanner::scanToken()
         } else if (isAlpha(c)) {
             identifier();
         } else {
-            Runner::error(mLine, "lox: unexpected character");
+            // Runner::error(mLine, "lox: unexpected character");
         }
         break;
     }
@@ -116,14 +116,14 @@ char Scanner::advance() { return mSource[mCurrent++]; }
 void Scanner::addToken(Token::Type type)
 {
     switch (type) {
-        case Token::Type::TRUE:
-            addToken(type, Value::createBool(true));
-            break;
-        case Token::Type::FALSE:
-            addToken(type, Value::createBool(false));
-            break;
-        default:
-            addToken(type, Value::createNil());
+    case Token::Type::TRUE:
+        addToken(type, Value::createBool(true));
+        break;
+    case Token::Type::FALSE:
+        addToken(type, Value::createBool(false));
+        break;
+    default:
+        addToken(type, Value::createNil());
     }
 }
 
@@ -168,7 +168,7 @@ void Scanner::string()
     }
 
     if (isAtEnd()) {
-        Runner::error(mLine, "lox: unterminated string");
+        //Runner::error(mLine, "lox: unterminated string");
         return;
     }
 

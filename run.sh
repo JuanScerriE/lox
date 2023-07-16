@@ -1,3 +1,3 @@
 #!/bin/sh
 
-build/src/lox
+build/src/lox "$@"

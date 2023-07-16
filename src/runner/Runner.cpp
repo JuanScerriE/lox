@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <memory>
 
@@ -10,11 +11,10 @@
 #include <parser/Parser.hpp>
 #include <printer/AstPrinter.hpp>
 #include <runner/Runner.hpp>
+#include <errors/RuntimeError.hpp>
 #include <scanner/Scanner.hpp>
 
 namespace Lox {
-
-bool Runner::mHadError = false;
 
 void Runner::report(int line, std::string const& where,
     std::string const& message)
@@ -38,8 +38,14 @@ void Runner::error(Token token, std::string const& message)
     }
 }
 
+void Runner::runtimeError(RuntimeError& error) {
+    std::cerr << error.what() << "\n[line " << error.getToken().getLine() << "]" << std::endl;
+    mHadRuntimeError = true;
+}
+
 void Runner::run(std::string const& source)
 {
+    // TODO: add scanning exceptions
     Scanner scanner(source);
 
     std::vector<Token> tokens = scanner.scanTokens();
@@ -48,6 +54,7 @@ void Runner::run(std::string const& source)
         std::cout << token << std::endl;
     }
 
+    // TODO: add parsing exceptions
     Parser parser(tokens);
 
     std::unique_ptr<Expr> expression = parser.parse();
@@ -59,62 +66,63 @@ void Runner::run(std::string const& source)
 
     std::cout << printer.print(expression.get()) << std::endl;
 
-    Interpreter interpreter;
-
-    try {
-        std::cout << "Eval: " << interpreter.eval(expression.get()).toString() << std::endl;
-    } catch (std::exception& e) {
-        std::cout << e.what() << std::endl;
-    }
+    mInterpreter.interpret(expression.get());
 }
 
-int Runner::runFile(char* path)
+std::string readFile(std::string_view path) {
+    constexpr auto read_size = std::size_t(4096);
+
+    auto file = std::ifstream(path);
+
+    if (!file) {
+        throw std::ios_base::failure("file does not exist");
+    }
+
+    auto out = std::string();
+
+    auto buf = std::string(read_size, '\0');
+
+    while (file.read(&buf[0], read_size)) {
+        out.append(buf, 0, file.gcount());
+    }
+
+    out.append(buf, 0, file.gcount());
+
+    return out;
+}
+
+int Runner::runFile(std::string& path)
 {
-    FILE* fp = fopen(path, "r");
+    std::ifstream file(path);
 
-    if (!fp) {
-        perror("lox:");
+    // make sure the file is opened correcntly
+    if (!file) {
+        std::cerr << "lox: " << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     }
 
-    if (fseek(fp, 0, SEEK_END) == -1) {
-        perror("lox");
-        fclose(fp);
-        return EXIT_FAILURE;
-    }
+    // TODO: figure out when this fails and handle everything
+    // properly
 
-    long size = ftell(fp);
+    // get the length of the file
+    file.seekg(0, file.end);
+    auto length = file.tellg();
+    file.seekg(0, file.beg);
 
-    if (size == -1) {
-        perror("lox");
-        fclose(fp);
-        return EXIT_FAILURE;
-    }
+    // load the source file into a string
+    std::string source(length, '\0');
+    file.read(source.data(), length);
 
-    if (fseek(fp, 0, SEEK_SET) == -1) {
-        perror("lox");
-        fclose(fp);
-        return EXIT_FAILURE;
-    }
+    // close file
+    file.close();
 
-    char* file = (char*)malloc((size + 1) * sizeof(char));
-    file[size] = 0;
-    fread(file, sizeof(char), size, fp);
-
-    if (ferror(fp)) {
-        std::cerr << "lox: error reading file " << path << std::endl;
-        perror("lox");
-        fclose(fp);
-        return EXIT_FAILURE;
-    }
-
-    fclose(fp);
-    std::string source(file);
-    free(file);
+    // run the source file
     run(source);
 
     if (mHadError) {
         return 65;
+    } else if(mHadRuntimeError) {
+        return 70;
     } else {
         return 0;
     }

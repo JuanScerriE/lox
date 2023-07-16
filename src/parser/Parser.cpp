@@ -167,7 +167,7 @@ Token Parser::previous() { return mTokens[mCurrent - 1]; }
 
 Parser::Error Parser::error(Token token, std::string message)
 {
-    Runner::error(token, message);
+    // Runner::error(token, message);
 
     return Error();
 }

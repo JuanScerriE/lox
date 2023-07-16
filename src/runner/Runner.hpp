@@ -5,22 +5,28 @@
 
 // lox
 #include <common/Token.hpp>
+#include <evaluator/Interpreter.hpp>
+#include <errors/RuntimeError.hpp>
 
 namespace Lox {
 
 class Runner {
 public:
-    static int runFile(char* path);
-    static int runPrompt();
-    static void error(int line, std::string const& message);
-    static void error(Token token, std::string const& message);
-    static void report(int line, std::string const& where,
+    int runFile(std::string& path);
+    int runPrompt();
+
+    void error(int line, std::string const& message);
+    void error(Token token, std::string const& message);
+    void runtimeError(RuntimeError& error);
+    void report(int line, std::string const& where,
         std::string const& message);
 
 private:
-    static void run(std::string const& source);
+    void run(std::string const& source);
 
-    static bool mHadError;
+    bool mHadError = false;
+    bool mHadRuntimeError = false;
+    Interpreter mInterpreter;
 };
 
 } // namespace Lox

@@ -8,15 +8,15 @@
 
 namespace Lox {
 
-class RuntimeError : public std::exception {
+class ParsingError : public std::exception {
 public:
-    RuntimeError(Token& token, char const* message)
+    ParsingError(Token& token, char const* message)
         : mToken(token)
         , mMessage(message)
     {
     }
 
-    RuntimeError(Token& token, std::string const& message)
+    ParsingError(Token& token, std::string const& message)
         : mToken(token)
         , mMessage(message)
     {

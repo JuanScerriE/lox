@@ -1,6 +1,5 @@
 // std
 #include <iostream>
-#include <memory>
 
 // lox
 #include <runner/Runner.hpp>
@@ -11,9 +10,15 @@ int main(int argc, char** argv)
         std::cout << "lox: usage lox [script]" << std::endl;
 
         return 64;
-    } else if (argc == 2) {
-        return Lox::Runner::runFile(argv[1]);
     } else {
-        return Lox::Runner::runPrompt();
+        Lox::Runner runner;
+
+        if (argc == 2) {
+            std::string path(argv[1]);
+
+            return runner.runFile(path);
+        } else {
+            return runner.runPrompt();
+        }
     }
 }

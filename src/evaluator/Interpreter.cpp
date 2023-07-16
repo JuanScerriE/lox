@@ -7,8 +7,19 @@
 #include <any>
 #include <cassert>
 #include <stdexcept>
+#include <iostream>
 
 namespace Lox {
+
+void Interpreter::interpret(Expr const* expr) {
+    try {
+        Value value = eval(expr);
+
+        std::cout << "Eval: " << value.toString() << std::endl;
+    } catch (RuntimeError& e) {
+        std::cout << e.what() << std::endl;
+    }
+}
 
 Value Interpreter::eval(Expr const* expr)
 {
@@ -36,14 +47,19 @@ std::any Interpreter::visitBinaryExpr(Binary const* expr)
     case Token::Type::EQUAL_EQUAL:
         return Value::createBool(isEqual(left, right));
     case Token::Type::GREATER:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createBool(std::get<double>(left.data) > std::get<double>(right.data));
     case Token::Type::GREATER_EQUAL:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createBool(std::get<double>(left.data) >= std::get<double>(right.data));
     case Token::Type::LESS:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createBool(std::get<double>(left.data) < std::get<double>(right.data));
     case Token::Type::LESS_EQUAL:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createBool(std::get<double>(left.data) <= std::get<double>(right.data));
     case Token::Type::MINUS:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createNumber(std::get<double>(left.data) - std::get<double>(right.data));
     case Token::Type::PLUS:
         if (left.type == Value::NUMBER && right.type == Value::NUMBER) {
@@ -54,10 +70,12 @@ std::any Interpreter::visitBinaryExpr(Binary const* expr)
             return Value::createString(std::get<std::string>(left.data) + std::get<std::string>(right.data));
         }
 
-        break;
+        throw RuntimeError(*expr->oper.get(), "Operands must be two numbers or two strings.");
     case Token::Type::SLASH:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createNumber(std::get<double>(left.data) / std::get<double>(right.data));
     case Token::Type::STAR:
+        checkNumberOperands(*expr->oper.get(), left, right);
         return Value::createNumber(std::get<double>(left.data) * std::get<double>(right.data));
     default:
         assert(nullptr != "Unreachable");
@@ -72,7 +90,9 @@ std::any Interpreter::visitUnaryExpr(Unary const* expr)
 
     switch (expr->oper->getType()) {
     case Token::Type::MINUS:
-        right.data = -std::get<double>(right.data);
+        checkNumberOperand(*expr->oper.get(), right);
+        right.data
+            = -std::get<double>(right.data);
         break;
     case Token::Type::BANG:
         right.data = !isTruthy(right);
@@ -129,6 +149,15 @@ void Interpreter::checkNumberOperand(Token& exprOperator, Value& operand) const
     }
 
     throw RuntimeError(exprOperator, "Operand must be a number.");
+}
+
+void Interpreter::checkNumberOperands(Token& exprOperator, Value& left, Value& right) const
+{
+    if (left.type == Value::NUMBER && right.type == Value::NUMBER) {
+        return;
+    }
+
+    throw RuntimeError(exprOperator, "Operands must be a numbers.");
 }
 
 } // namespace Lox
