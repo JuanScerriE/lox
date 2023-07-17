@@ -5,8 +5,10 @@
 
 // lox
 #include <common/Token.hpp>
-#include <evaluator/Interpreter.hpp>
+#include <errors/ParsingError.hpp>
 #include <errors/RuntimeError.hpp>
+#include <errors/ScanningError.hpp>
+#include <evaluator/Interpreter.hpp>
 
 namespace Lox {
 
@@ -15,17 +17,17 @@ public:
     int runFile(std::string& path);
     int runPrompt();
 
-    void error(int line, std::string const& message);
-    void error(Token token, std::string const& message);
-    void runtimeError(RuntimeError& error);
-    void report(int line, std::string const& where,
-        std::string const& message);
-
 private:
+    void handleError(ScanningError& error);
+    void handleError(ParsingError& error);
+    void handleError(RuntimeError& error);
+
     void run(std::string const& source);
 
-    bool mHadError = false;
+    bool mHadScanningError = false;
+    bool mHadParsingError = false;
     bool mHadRuntimeError = false;
+
     Interpreter mInterpreter;
 };
 

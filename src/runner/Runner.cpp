@@ -1,94 +1,95 @@
 // std
 #include <cstdio>
 #include <cstdlib>
-#include <iostream>
 #include <fstream>
+#include <iostream>
 #include <list>
 #include <memory>
 
 // lox
+#include <errors/RuntimeError.hpp>
+#include <errors/ScanningError.hpp>
 #include <evaluator/Interpreter.hpp>
 #include <parser/Parser.hpp>
 #include <printer/AstPrinter.hpp>
 #include <runner/Runner.hpp>
-#include <errors/RuntimeError.hpp>
 #include <scanner/Scanner.hpp>
 
 namespace Lox {
 
-void Runner::report(int line, std::string const& where,
-    std::string const& message)
+void Runner::handleError(ScanningError& error)
 {
-    std::cerr << "[line " << line << "] Error" << where << ": " << message << std::endl;
-
-    mHadError = true;
+    std::cerr
+        << "Error: "
+        << error.what()
+        << "\n[line " << error.getLine() << "]" << std::endl;
+    mHadScanningError = true;
 }
 
-void Runner::error(int line, std::string const& message)
+void Runner::handleError(ParsingError& error)
 {
-    report(line, "", message);
-}
-
-void Runner::error(Token token, std::string const& message)
-{
-    if (token.getType() == Token::Type::END_OF_FILE) {
-        report(token.getLine(), " at end", message);
+    if (error.getToken().getType() == Token::Type::END_OF_FILE) {
+        std::cerr
+            << "Error at End Of File: "
+            << error.what()
+            << "\n[line " << error.getToken().getLine() << "]" << std::endl;
     } else {
-        report(token.getLine(), " at '" + token.getLexeme() + "'", message);
+        std::cerr
+            << "Error at '" << error.getToken().getLexeme() << "': "
+            << error.what()
+            << "\n[line " << error.getToken().getLine() << "]" << std::endl;
     }
+    mHadParsingError = true;
 }
 
-void Runner::runtimeError(RuntimeError& error) {
-    std::cerr << error.what() << "\n[line " << error.getToken().getLine() << "]" << std::endl;
+void Runner::handleError(RuntimeError& error)
+{
+    std::cerr
+        << "Error: "
+        << error.what()
+        << "\n[line " << error.getToken().getLine() << "]" << std::endl;
     mHadRuntimeError = true;
 }
 
 void Runner::run(std::string const& source)
 {
-    // TODO: add scanning exceptions
     Scanner scanner(source);
 
-    std::vector<Token> tokens = scanner.scanTokens();
+    try {
+        scanner.scanTokens();
+    } catch (ScanningError& error) {
+        handleError(error);
+    }
 
+    if (mHadScanningError)
+        return;
+
+    std::vector<Token> tokens = scanner.getTokens();
+
+    // print the tokens
     for (Token const& token : tokens) {
         std::cout << token << std::endl;
     }
 
-    // TODO: add parsing exceptions
     Parser parser(tokens);
 
-    std::unique_ptr<Expr> expression = parser.parse();
+    try {
+        parser.parse();
+    } catch(ParsingError& error) {
+        handleError(error);
+    }
 
-    if (mHadError)
+    std::unique_ptr<Expr> expression = parser.getAST();
+
+    if (mHadParsingError)
         return;
 
+    // print the ast
     AstPrinter printer;
-
     std::cout << printer.print(expression.get()) << std::endl;
 
+    // interpret the ast
     mInterpreter.interpret(expression.get());
-}
-
-std::string readFile(std::string_view path) {
-    constexpr auto read_size = std::size_t(4096);
-
-    auto file = std::ifstream(path);
-
-    if (!file) {
-        throw std::ios_base::failure("file does not exist");
-    }
-
-    auto out = std::string();
-
-    auto buf = std::string(read_size, '\0');
-
-    while (file.read(&buf[0], read_size)) {
-        out.append(buf, 0, file.gcount());
-    }
-
-    out.append(buf, 0, file.gcount());
-
-    return out;
 }
 
 int Runner::runFile(std::string& path)
@@ -119,9 +120,9 @@ int Runner::runFile(std::string& path)
     // run the source file
     run(source);
 
-    if (mHadError) {
+    if (mHadScanningError || mHadParsingError) {
         return 65;
-    } else if(mHadRuntimeError) {
+    } else if (mHadRuntimeError) {
         return 70;
     } else {
         return 0;
@@ -141,7 +142,9 @@ int Runner::runPrompt()
         }
 
         run(line);
-        mHadError = false;
+
+        mHadScanningError = false;
+        mHadParsingError = false;
     }
 
     return 0;

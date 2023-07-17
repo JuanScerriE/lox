@@ -10,26 +10,24 @@ namespace Lox {
 
 class ScanningError : public std::exception {
 public:
-    ScanningError(Token& token, char const* message)
-        : mToken(token)
+    ScanningError(int line, char const* message)
+        : mLine(line)
         , mMessage(message)
     {
     }
 
-    ScanningError(Token& token, std::string const& message)
-        : mToken(token)
-        , mMessage(message)
+    int getLine() const
     {
+        return mLine;
     }
 
-    Token& getToken() const
-    {
-        return mToken;
+    const char* what() const noexcept override {
+        return mMessage;
     }
 
 private:
-    Token& mToken;
-    std::string mMessage;
+    int mLine;
+    const char* mMessage;
 };
 
 } // namespace Lox

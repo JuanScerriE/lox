@@ -16,10 +16,8 @@ class Parser {
 public:
     Parser(std::vector<Token>& tokens);
 
-    // TODO: maybe use std::runtime_error
-    class Error : std::exception { };
-
-    std::unique_ptr<Expr> parse();
+    void parse();
+    std::unique_ptr<Expr> getAST() const;
 
 private:
     std::unique_ptr<Expr> expression();
@@ -41,6 +39,8 @@ private:
     void synchronize();
 
     std::vector<Token>& mTokens;
+
+    std::unique_ptr<Expr> mAST;
 
     int mCurrent = 0;
 };

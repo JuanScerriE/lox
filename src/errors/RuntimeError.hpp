@@ -16,20 +16,19 @@ public:
     {
     }
 
-    RuntimeError(Token& token, std::string const& message)
-        : mToken(token)
-        , mMessage(message)
-    {
-    }
-
     Token& getToken() const
     {
         return mToken;
     }
 
+    char const* what() const noexcept override
+    {
+        return mMessage;
+    }
+
 private:
     Token& mToken;
-    std::string mMessage;
+    char const* mMessage;
 };
 
 } // namespace Lox

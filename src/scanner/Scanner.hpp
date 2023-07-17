@@ -13,7 +13,8 @@ namespace Lox {
 class Scanner {
 public:
     Scanner(std::string const& source);
-    std::vector<Token> scanTokens();
+    void scanTokens();
+    std::vector<Token> getTokens() const;
 
 private:
     bool isAtEnd();
@@ -32,11 +33,10 @@ private:
     static bool isAlpha(char c);
     static bool isAlphaNumeric(char c);
 
-    const std::string mSource;
-    std::list<Token> mTokens;
-
     // TODO: Checkout how this compiles with constexpr and
     // consteval. We just need to be embedded in the binary.
+    // We can also make use of merkel trie to check membership
+    // quickly.
     const std::unordered_map<std::string, Token::Type> keywords {
         { "and", Token::Type::AND },
         { "class", Token::Type::CLASS },
@@ -55,6 +55,9 @@ private:
         { "var", Token::Type::VAR },
         { "while", Token::Type::WHILE },
     };
+
+    const std::string mSource;
+    std::list<Token> mTokens;
 
     int mLine = 1;
     size_t mCurrent = 0;

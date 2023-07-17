@@ -5,8 +5,7 @@
 #include <vector>
 
 // lox
-#include <common/Token.hpp>
-#include <runner/Runner.hpp>
+#include <errors/ScanningError.hpp>
 #include <scanner/Scanner.hpp>
 
 namespace Lox {
@@ -16,7 +15,7 @@ Scanner::Scanner(std::string const& source)
 {
 }
 
-std::vector<Token> Scanner::scanTokens()
+void Scanner::scanTokens()
 {
     while (!isAtEnd()) {
         // We are at the beginning of the next lexeme
@@ -26,8 +25,10 @@ std::vector<Token> Scanner::scanTokens()
 
     mTokens.push_back(
         Token(Token::Type::END_OF_FILE, "", Value::createNil(), mLine));
+}
 
-    return { mTokens.begin(), mTokens.end() };
+std::vector<Token> Scanner::getTokens() const {
+    return {mTokens.begin(), mTokens.end()};
 }
 
 bool Scanner::isAtEnd() { return mCurrent >= mSource.length(); }
@@ -105,7 +106,7 @@ void Scanner::scanToken()
         } else if (isAlpha(c)) {
             identifier();
         } else {
-            // Runner::error(mLine, "lox: unexpected character");
+            throw ScanningError(mLine, "unexpected character");
         }
         break;
     }
@@ -168,8 +169,7 @@ void Scanner::string()
     }
 
     if (isAtEnd()) {
-        //Runner::error(mLine, "lox: unterminated string");
-        return;
+        throw ScanningError(mLine, "unterminated string");
     }
 
     // the closing "
