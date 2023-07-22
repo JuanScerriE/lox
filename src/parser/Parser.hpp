@@ -7,7 +7,7 @@
 #include <vector>
 
 // lox
-#include <common/Expr.hpp>
+#include <common/AST.hpp>
 #include <common/Token.hpp>
 
 namespace Lox {
@@ -17,9 +17,14 @@ public:
     Parser(std::vector<Token>& tokens);
 
     void parse();
-    std::unique_ptr<Expr> getAST() const;
+    std::unique_ptr<Program> getAST();
 
 private:
+    std::unique_ptr<Program> program();
+    std::unique_ptr<Stmt> statement();
+    std::unique_ptr<Stmt> printStatement();
+    std::unique_ptr<Stmt> expressionStatement();
+
     std::unique_ptr<Expr> expression();
     std::unique_ptr<Expr> equality();
     std::unique_ptr<Expr> comparison();
@@ -33,14 +38,13 @@ private:
     bool check(Token::Type type);
     Token advance();
     bool isAtEnd();
-    Token peek();
+    Token& peek();
     Token previous();
-    Error error(Token token, std::string message);
     void synchronize();
 
     std::vector<Token>& mTokens;
 
-    std::unique_ptr<Expr> mAST;
+    std::unique_ptr<Program> mAST;
 
     int mCurrent = 0;
 };

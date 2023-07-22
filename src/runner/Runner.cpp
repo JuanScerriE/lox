@@ -9,7 +9,7 @@
 // lox
 #include <errors/RuntimeError.hpp>
 #include <errors/ScanningError.hpp>
-#include <evaluator/Interpreter.hpp>
+// #include <evaluator/Interpreter.hpp>
 #include <parser/Parser.hpp>
 #include <printer/AstPrinter.hpp>
 #include <runner/Runner.hpp>
@@ -79,17 +79,16 @@ void Runner::run(std::string const& source)
         handleError(error);
     }
 
-    std::unique_ptr<Expr> expression = parser.getAST();
+    std::unique_ptr<Program> program = parser.getAST();
 
     if (mHadParsingError)
         return;
 
     // print the ast
-    AstPrinter printer;
-    std::cout << printer.print(expression.get()) << std::endl;
+    printer.printProgram(program);
 
     // interpret the ast
-    mInterpreter.interpret(expression.get());
+    // mInterpreter.interpret(expression.get());
 }
 
 int Runner::runFile(std::string& path)

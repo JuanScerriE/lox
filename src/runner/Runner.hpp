@@ -8,7 +8,7 @@
 #include <errors/ParsingError.hpp>
 #include <errors/RuntimeError.hpp>
 #include <errors/ScanningError.hpp>
-#include <evaluator/Interpreter.hpp>
+#include <printer2/AstPrinter.hpp>
 
 namespace Lox {
 
@@ -28,7 +28,8 @@ private:
     bool mHadParsingError = false;
     bool mHadRuntimeError = false;
 
-    Interpreter mInterpreter;
+    // Interpreter mInterpreter;
+    ASTPrinter printer;
 };
 
 } // namespace Lox

@@ -27,8 +27,8 @@ void Scanner::scanTokens()
         Token(Token::Type::END_OF_FILE, "", Value::createNil(), mLine));
 }
 
-std::vector<Token> Scanner::getTokens() const {
-    return {mTokens.begin(), mTokens.end()};
+std::vector<Token> Scanner::getTokens() {
+    return std::move(mTokens);
 }
 
 bool Scanner::isAtEnd() { return mCurrent >= mSource.length(); }

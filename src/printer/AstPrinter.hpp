@@ -4,11 +4,11 @@
 #include <string>
 
 // lox
-#include <common/Expr.hpp>
+#include <common/AST.hpp>
 
 namespace Lox {
 
-class AstPrinter : public Visitor {
+class AstPrinter : public ExprVisitor, public StmtVisitor {
 public:
     std::string print(Expr const* expr);
 

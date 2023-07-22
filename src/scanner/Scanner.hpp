@@ -14,7 +14,7 @@ class Scanner {
 public:
     Scanner(std::string const& source);
     void scanTokens();
-    std::vector<Token> getTokens() const;
+    std::vector<Token> getTokens();
 
 private:
     bool isAtEnd();
@@ -57,7 +57,7 @@ private:
     };
 
     const std::string mSource;
-    std::list<Token> mTokens;
+    std::vector<Token> mTokens;
 
     int mLine = 1;
     size_t mCurrent = 0;

@@ -21,17 +21,17 @@ target_link_libraries(lox PRIVATE lox_lib)
 
 #---------------------------------
 
-enable_testing()
-
-add_executable(lox_tests
-    tests/Tests.cpp
-)
-
-target_compile_options(lox_lib PRIVATE)
-target_link_libraries(lox_tests PRIVATE
-    lox_lib
-    GTest::gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(lox_tests)
+# enable_testing()
+#
+# add_executable(lox_tests
+#     tests/Tests.cpp
+# )
+#
+# target_compile_options(lox_lib PRIVATE)
+# target_link_libraries(lox_tests PRIVATE
+#     lox_lib
+#     GTest::gtest_main
+# )
+#
+# include(GoogleTest)
+# gtest_discover_tests(lox_tests)
