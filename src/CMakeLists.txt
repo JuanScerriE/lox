@@ -4,7 +4,7 @@ add_library(lox_lib STATIC
     parser/Parser.cpp
     scanner/Scanner.cpp
     common/Token.cpp
-    printer/AstPrinter.cpp
+    # printer/AstPrinter.cpp
 )
 
 target_compile_options(lox_lib PRIVATE)

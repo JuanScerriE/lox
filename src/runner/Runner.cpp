@@ -1,5 +1,6 @@
 // std
 #include <cstdio>
+#include <cstring>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -9,9 +10,7 @@
 // lox
 #include <errors/RuntimeError.hpp>
 #include <errors/ScanningError.hpp>
-// #include <evaluator/Interpreter.hpp>
 #include <parser/Parser.hpp>
-#include <printer/AstPrinter.hpp>
 #include <runner/Runner.hpp>
 #include <scanner/Scanner.hpp>
 

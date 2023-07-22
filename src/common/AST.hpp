@@ -1,9 +1,10 @@
 #pragma once
 
 // std
-#include <algorithm>
 #include <any>
 #include <memory>
+#include <utility>
+#include <algorithm>
 
 // lox
 #include <common/Token.hpp>
@@ -18,17 +19,17 @@ public:
         UNARY,
         LITERAL
     };
-    virtual Type type() const = 0;
-    virtual ~Expr() {};
+    [[nodiscard]] virtual Type type() const = 0;
+    virtual ~Expr() = default;
 };
 
 class Grouping : public Expr {
 public:
-    Grouping(std::unique_ptr<Expr> expr)
+    explicit Grouping(std::unique_ptr<Expr> expr)
         : expr(std::move(expr))
     {
     }
-    Type type() const override { return GROUPING; }
+    [[nodiscard]] Type type() const override { return GROUPING; }
     std::unique_ptr<Expr> expr;
 };
 
@@ -36,14 +37,14 @@ class Binary : public Expr {
 public:
     Binary(
         std::unique_ptr<Expr> left,
-        Token oper,
+        const Token& oper,
         std::unique_ptr<Expr> right)
         : left(std::move(left))
         , oper(oper)
         , right(std::move(right))
     {
     }
-    Type type() const override { return BINARY; }
+    [[nodiscard]] Type type() const override { return BINARY; }
     std::unique_ptr<Expr> left;
     Token oper;
     std::unique_ptr<Expr> right;
@@ -52,24 +53,24 @@ public:
 class Unary : public Expr {
 public:
     Unary(
-        Token oper,
+        const Token& oper,
         std::unique_ptr<Expr> expr)
         : oper(oper)
         , expr(std::move(expr))
     {
     }
-    Type type() const override { return UNARY; }
+    [[nodiscard]] Type type() const override { return UNARY; }
     Token oper;
     std::unique_ptr<Expr> expr;
 };
 
 class Literal : public Expr {
 public:
-    Literal(Value value)
-        : value(value)
+    explicit Literal(Value value)
+        : value(std::move(value))
     {
     }
-    Type type() const override { return LITERAL; }
+    [[nodiscard]] Type type() const override { return LITERAL; }
     Value value;
 };
 
@@ -87,27 +88,27 @@ public:
         PRINT,
         EXPRESSION,
     };
-    virtual Type type() const = 0;
-    virtual ~Stmt() {};
+    [[nodiscard]] virtual Type type() const = 0;
+    virtual ~Stmt() = default;
 };
 
 class PrintStmt : public Stmt {
 public:
-    PrintStmt(std::unique_ptr<Expr> expr)
+    explicit PrintStmt(std::unique_ptr<Expr> expr)
         : expr(std::move(expr))
     {
     }
-    Type type() const override { return PRINT; }
+    [[nodiscard]] Type type() const override { return PRINT; }
     std::unique_ptr<Expr> expr;
 };
 
 class ExprStmt : public Stmt {
 public:
-    ExprStmt(std::unique_ptr<Expr> expr)
+    explicit ExprStmt(std::unique_ptr<Expr> expr)
         : expr(std::move(expr))
     {
     }
-    Type type() const override { return EXPRESSION; }
+    [[nodiscard]] Type type() const override { return EXPRESSION; }
     std::unique_ptr<Expr> expr;
 };
 
@@ -119,7 +120,7 @@ public:
 
 class Program {
 public:
-    Program(std::vector<std::unique_ptr<Stmt>> stmts)
+    explicit Program(std::vector<std::unique_ptr<Stmt>> stmts)
         : stmts(std::move(stmts))
     {
     }
