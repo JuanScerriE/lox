@@ -1,26 +1,32 @@
 #pragma once
 
-#include <common/Expr.hpp>
+#include <common/AST.hpp>
 #include <common/Value.hpp>
 
 namespace Lox {
 
-class Interpreter : public Visitor {
+class Interpreter : ExprVisitor, StmtVisitor {
 public:
-    void interpret(Expr const* expr);
+  void interpret(Expr const *expr);
 
 private:
-    std::any visitLiteralExpr(Literal const* expr) override;
-    std::any visitGroupingExpr(Grouping const* expr) override;
-    std::any visitBinaryExpr(Binary const* expr) override;
-    std::any visitUnaryExpr(Unary const* expr) override;
+  void visitExprStmt(ExprStmt const *expr) override;
+  void visitPrintStmt(PrintStmt const *expr) override;
 
-    Value eval(Expr const* expr);
+  void visitLiteralExpr(Literal const *expr) override;
+  void visitGroupingExpr(Grouping const *expr) override;
+  void visitBinaryExpr(Binary const *expr) override;
+  void visitUnaryExpr(Unary const *expr) override;
 
-    bool isTruthy(Value& value) const;
-    bool isEqual(Value& value1, Value& value2) const;
-    void checkNumberOperand(Token& exprOperator, Value& operand) const;
-    void checkNumberOperands(Token& exprOperator, Value& left, Value& right) const;
+  void eval(Expr *expr);
+
+  bool isTruthy(Value &value) const;
+  bool isEqual(Value &value1, Value &value2) const;
+  void checkNumberOperand(Token &exprOperator, Value &operand) const;
+  void checkNumberOperands(Token &exprOperator, Value &left,
+                           Value &right) const;
+
+  Value mExprResult;
 };
 
 } // namespace Lox
