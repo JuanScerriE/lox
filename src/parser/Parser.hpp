@@ -14,16 +14,22 @@ namespace Lox {
 
 class Parser {
 public:
-    Parser(std::vector<Token>& tokens);
+    explicit Parser(std::vector<Token>& tokens);
 
     void parse();
     std::unique_ptr<Program> getAST();
 
 private:
     std::unique_ptr<Program> program();
+
+    //std::unique_ptr<Decl> decleration();
+    //std::unique_ptr<Decl> classDecleration();
+    //std::unique_ptr<Decl> functionDecleration();
+    //std::unique_ptr<Decl> variableDecleration();
+
     std::unique_ptr<Stmt> statement();
-    std::unique_ptr<Stmt> printStatement();
     std::unique_ptr<Stmt> expressionStatement();
+    std::unique_ptr<Stmt> printStatement();
 
     std::unique_ptr<Expr> expression();
     std::unique_ptr<Expr> equality();

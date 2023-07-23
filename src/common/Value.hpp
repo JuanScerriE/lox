@@ -39,7 +39,7 @@ struct Value {
         return { Type::NUMBER, number };
     }
 
-    std::string toString() const
+    [[nodiscard]] std::string toString() const
     {
         switch (type) {
         case Type::NIL:
@@ -49,7 +49,7 @@ struct Value {
         case Type::NUMBER:
             return std::to_string(std::get<double>(data));
         case Type::STRING:
-            return std::get<std::string>(data);
+            return "\"" + std::get<std::string>(data) + "\"";
         default:
             return "Undefined Value Type";
         }

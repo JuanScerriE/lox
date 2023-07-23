@@ -16,12 +16,12 @@ public:
     {
     }
 
-    Token& getToken() const
+    [[nodiscard]] Token& getToken() const
     {
         return mToken;
     }
 
-    char const* what() const noexcept override
+    [[nodiscard]] char const* what() const noexcept override
     {
         return mMessage;
     }

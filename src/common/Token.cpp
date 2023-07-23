@@ -1,17 +1,17 @@
 // std
 #include <iostream>
+#include <utility>
 
 // lox
 #include <common/Token.hpp>
-#include <common/Value.hpp>
 
 namespace Lox {
 
-Token::Token(Type type, std::string const& lexeme, Value literal,
+Token::Token(Type type, std::string lexeme, Value literal,
     int line)
     : mType(type)
-    , mLiteral(literal)
-    , mLexeme(lexeme)
+    , mLiteral(std::move(literal))
+    , mLexeme(std::move(lexeme))
     , mLine(line)
 {
 }
@@ -162,9 +162,9 @@ std::ostream& operator<<(std::ostream& out, std::vector<Token> const& tokens)
     return out;
 }
 
-Token::Type Token::getType() { return mType; }
+Token::Type Token::getType() const { return mType; }
 
-Value Token::getLiteral() { return mLiteral; }
+Value Token::getLiteral() const { return mLiteral; }
 
 std::string Token::getLexeme() const { return mLexeme; }
 

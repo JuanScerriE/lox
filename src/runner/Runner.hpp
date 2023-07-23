@@ -8,7 +8,7 @@
 #include <errors/ParsingError.hpp>
 #include <errors/RuntimeError.hpp>
 #include <errors/ScanningError.hpp>
-#include <printer2/AstPrinter.hpp>
+#include <printer/ASTPrinter.hpp>
 
 namespace Lox {
 

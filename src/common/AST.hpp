@@ -11,15 +11,23 @@
 
 namespace Lox {
 
+class Binary;
+class Grouping;
+class Literal;
+class Unary;
+
+class ExprVisitor {
+public:
+    virtual void visitGroupingExpr(Grouping const* expr) = 0;
+    virtual void visitBinaryExpr(Binary const* expr) = 0;
+    virtual void visitLiteralExpr(Literal const* expr) = 0;
+    virtual void visitUnaryExpr(Unary const* expr) = 0;
+};
+
 class Expr {
 public:
-    enum Type {
-        GROUPING,
-        BINARY,
-        UNARY,
-        LITERAL
-    };
-    [[nodiscard]] virtual Type type() const = 0;
+    virtual void accept(ExprVisitor* visitor) = 0;
+
     virtual ~Expr() = default;
 };
 
@@ -29,7 +37,11 @@ public:
         : expr(std::move(expr))
     {
     }
-    [[nodiscard]] Type type() const override { return GROUPING; }
+
+    void accept(ExprVisitor* visitor) override {
+        visitor->visitGroupingExpr(this);
+    }
+
     std::unique_ptr<Expr> expr;
 };
 
@@ -44,7 +56,11 @@ public:
         , right(std::move(right))
     {
     }
-    [[nodiscard]] Type type() const override { return BINARY; }
+
+    void accept(ExprVisitor* visitor) override {
+        visitor->visitBinaryExpr(this);
+    }
+
     std::unique_ptr<Expr> left;
     Token oper;
     std::unique_ptr<Expr> right;
@@ -59,7 +75,11 @@ public:
         , expr(std::move(expr))
     {
     }
-    [[nodiscard]] Type type() const override { return UNARY; }
+
+    void accept(ExprVisitor* visitor) override {
+        visitor->visitUnaryExpr(this);
+    }
+
     Token oper;
     std::unique_ptr<Expr> expr;
 };
@@ -70,25 +90,26 @@ public:
         : value(std::move(value))
     {
     }
-    [[nodiscard]] Type type() const override { return LITERAL; }
+
+    void accept(ExprVisitor* visitor) override {
+        visitor->visitLiteralExpr(this);
+    }
+
     Value value;
 };
 
-// class ExprVisitor {
-// public:
-//     virtual std::any visitBinaryExpr(Binary const* expr) = 0;
-//     virtual std::any visitGroupingExpr(Grouping const* expr) = 0;
-//     virtual std::any visitLiteralExpr(Literal const* expr) = 0;
-//     virtual std::any visitUnaryExpr(Unary const* expr) = 0;
-// };
+class PrintStmt;
+class ExprStmt;
+
+class StmtVisitor {
+public:
+    virtual void visitPrintStmt(PrintStmt const* expr) = 0;
+    virtual void visitExprStmt(ExprStmt const* expr) = 0;
+};
 
 class Stmt {
 public:
-    enum Type {
-        PRINT,
-        EXPRESSION,
-    };
-    [[nodiscard]] virtual Type type() const = 0;
+    virtual void accept(StmtVisitor* visitor) = 0;
     virtual ~Stmt() = default;
 };
 
@@ -98,7 +119,11 @@ public:
         : expr(std::move(expr))
     {
     }
-    [[nodiscard]] Type type() const override { return PRINT; }
+
+    void accept(StmtVisitor* visitor) override {
+        visitor->visitPrintStmt(this);
+    }
+
     std::unique_ptr<Expr> expr;
 };
 
@@ -108,15 +133,13 @@ public:
         : expr(std::move(expr))
     {
     }
-    [[nodiscard]] Type type() const override { return EXPRESSION; }
+
+    void accept(StmtVisitor* visitor) override {
+        visitor->visitExprStmt(this);
+    }
+
     std::unique_ptr<Expr> expr;
 };
-
-// class StmtVisitor {
-// public:
-//     virtual std::any visitPrintStmt(PrintStmt const* expr) = 0;
-//     virtual std::any visitExprStmt(ExprStmt const* expr) = 0;
-// };
 
 class Program {
 public:
@@ -124,6 +147,7 @@ public:
         : stmts(std::move(stmts))
     {
     }
+
     std::vector<std::unique_ptr<Stmt>> stmts;
 };
 

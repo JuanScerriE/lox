@@ -84,7 +84,7 @@ void Runner::run(std::string const& source)
         return;
 
     // print the ast
-    printer.printProgram(program);
+    printer.print(program);
 
     // interpret the ast
     // mInterpreter.interpret(expression.get());

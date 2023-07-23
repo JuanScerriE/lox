@@ -62,12 +62,12 @@ public:
     };
 
     Token(Token const&);
-    Token(Type type, std::string const& lexeme, Value literal, int line);
+    Token(Type type, std::string  lexeme, Value literal, int line);
 
-    Type getType();
-    Value getLiteral();
-    std::string getLexeme() const;
-    int getLine() const;
+    [[nodiscard]] Type getType() const;
+    [[nodiscard]] Value getLiteral() const;
+    [[nodiscard]] std::string getLexeme() const;
+    [[nodiscard]] int getLine() const;
 
     friend std::ostream& operator<<(std::ostream& out, Token const& token);
     friend std::ostream& operator<<(std::ostream& out, std::vector<Token> const& token);

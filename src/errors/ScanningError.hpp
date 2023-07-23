@@ -16,12 +16,12 @@ public:
     {
     }
 
-    int getLine() const
+    [[nodiscard]] int getLine() const
     {
         return mLine;
     }
 
-    const char* what() const noexcept override {
+    [[nodiscard]] const char* what() const noexcept override {
         return mMessage;
     }
 

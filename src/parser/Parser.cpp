@@ -34,7 +34,7 @@ std::unique_ptr<Program> Parser::program()
         stmts.push_back(statement());
     }
 
-    return std::make_unique<Program>(stmts);
+    return std::make_unique<Program>(std::move(stmts));
 }
 
 std::unique_ptr<Stmt> Parser::statement()
@@ -202,7 +202,7 @@ Token Parser::advance()
 
 bool Parser::isAtEnd() { return peek().getType() == Token::Type::END_OF_FILE; }
 
-// TODO: For now this is fine but this is unlikely to correct
+// TODO: For now this is fine but this is unlikely to be correct
 Token& Parser::peek() { return mTokens[mCurrent]; }
 
 Token Parser::previous() { return mTokens[mCurrent - 1]; }

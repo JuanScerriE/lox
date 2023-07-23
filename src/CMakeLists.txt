@@ -1,6 +1,6 @@
 add_library(lox_lib STATIC
     runner/Runner.cpp
-    evaluator/Interpreter.cpp
+    # evaluator/Interpreter.cpp
     parser/Parser.cpp
     scanner/Scanner.cpp
     common/Token.cpp
