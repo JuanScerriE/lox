@@ -70,7 +70,6 @@ public:
     [[nodiscard]] int getLine() const;
 
     friend std::ostream& operator<<(std::ostream& out, Token const& token);
-    friend std::ostream& operator<<(std::ostream& out, std::vector<Token> const& token);
 
 private:
     Type mType;

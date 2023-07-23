@@ -8,6 +8,7 @@
 #include <common/AST.hpp>
 #include <errors/ParsingError.hpp>
 #include <parser/Parser.hpp>
+#include <utility>
 
 namespace Lox {
 
@@ -166,10 +167,10 @@ Token Parser::consume(Token::Type type, std::string message)
         return advance();
     }
 
-    throw ParsingError(peek(), "Expect expression.");
+    throw ParsingError(peek(), std::move(message));
 }
 
-bool Parser::match(std::vector<Token::Type> types)
+bool Parser::match(const std::vector<Token::Type>& types)
 {
     for (Token::Type type : types) {
         if (check(type)) {

@@ -29,7 +29,7 @@ private:
     bool mHadRuntimeError = false;
 
     // Interpreter mInterpreter;
-    ASTPrinter printer;
+    ASTPrinter mPrinter;
 };
 
 } // namespace Lox

@@ -1,10 +1,8 @@
 // std
-#include <cstdio>
 #include <cstring>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
-#include <list>
 #include <memory>
 
 // lox
@@ -84,7 +82,7 @@ void Runner::run(std::string const& source)
         return;
 
     // print the ast
-    printer.print(program);
+    mPrinter.print(program);
 
     // interpret the ast
     // mInterpreter.interpret(expression.get());
@@ -94,19 +92,18 @@ int Runner::runFile(std::string& path)
 {
     std::ifstream file(path);
 
-    // make sure the file is opened correcntly
+    // make sure the file is opened correctly
     if (!file) {
         std::cerr << "lox: " << strerror(errno) << std::endl;
         return EXIT_FAILURE;
     }
 
-    // TODO: figure out when this fails and handle everything
-    // properly
+    // TODO: figure out when this fails and handle it proplerly
 
     // get the length of the file
-    file.seekg(0, file.end);
+    file.seekg(0, std::ifstream::end);
     auto length = file.tellg();
-    file.seekg(0, file.beg);
+    file.seekg(0, std::ifstream::beg);
 
     // load the source file into a string
     std::string source(length, '\0');

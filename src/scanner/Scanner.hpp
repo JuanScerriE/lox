@@ -12,7 +12,7 @@ namespace Lox {
 
 class Scanner {
 public:
-    explicit Scanner(std::string const& source);
+    explicit Scanner(std::string  source);
     void scanTokens();
     std::vector<Token> getTokens();
 
@@ -21,7 +21,7 @@ private:
     void scanToken();
     char advance();
     void addToken(Token::Type type);
-    void addToken(Token::Type type, Value literal);
+    void addToken(Token::Type type, const Value& literal);
     bool match(char expected);
     char peek();
     void string();

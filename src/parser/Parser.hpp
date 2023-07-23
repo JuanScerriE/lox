@@ -22,10 +22,10 @@ public:
 private:
     std::unique_ptr<Program> program();
 
-    //std::unique_ptr<Decl> decleration();
-    //std::unique_ptr<Decl> classDecleration();
-    //std::unique_ptr<Decl> functionDecleration();
-    //std::unique_ptr<Decl> variableDecleration();
+    //std::unique_ptr<Decl> declaration();
+    //std::unique_ptr<Decl> classDeclaration();
+    //std::unique_ptr<Decl> functionDeclaration();
+    //std::unique_ptr<Decl> variableDeclaration();
 
     std::unique_ptr<Stmt> statement();
     std::unique_ptr<Stmt> expressionStatement();
@@ -39,7 +39,7 @@ private:
     std::unique_ptr<Expr> unary();
     std::unique_ptr<Expr> primary();
 
-    bool match(std::vector<Token::Type> types);
+    bool match(const std::vector<Token::Type>& types);
     Token consume(Token::Type type, std::string message);
     bool check(Token::Type type);
     Token advance();

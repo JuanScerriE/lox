@@ -88,10 +88,10 @@ std::ostream& operator<<(std::ostream& out, Token const& token)
         out << "IDENTIFIER " << token.mLexeme;
         break;
     case Token::Type::STRING:
-        out << "STRING " << token.mLexeme << " " << token.mLiteral.toString();
+        out << "STRING " << token.mLiteral.toString();
         break;
     case Token::Type::NUMBER:
-        out << "NUMBER " << token.mLexeme << " " << token.mLiteral.toString();
+        out << "NUMBER " << token.mLiteral.toString();
         break;
     case Token::Type::AND:
         out << "AND " << token.mLexeme;
@@ -145,19 +145,6 @@ std::ostream& operator<<(std::ostream& out, Token const& token)
         out << "END_OF_FILE " << token.mLexeme;
         break;
     }
-
-    return out;
-}
-
-std::ostream& operator<<(std::ostream& out, std::vector<Token> const& tokens)
-{
-    out << "[ ";
-
-    for (auto& token : tokens) {
-        out << "{ " << token << " }, ";
-    }
-
-    out << "]";
 
     return out;
 }

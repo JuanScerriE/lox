@@ -2,6 +2,7 @@
 #include <cstring>
 #include <exception>
 #include <iostream>
+#include <utility>
 #include <vector>
 
 // lox
@@ -10,8 +11,8 @@
 
 namespace Lox {
 
-Scanner::Scanner(std::string const& source)
-    : mSource(source)
+Scanner::Scanner(std::string source)
+    : mSource(std::move(source))
 {
 }
 
@@ -23,11 +24,12 @@ void Scanner::scanTokens()
         scanToken();
     }
 
-    mTokens.push_back(
-        Token(Token::Type::END_OF_FILE, "", Value::createNil(), mLine));
+    mTokens.emplace_back(
+        Token::Type::END_OF_FILE, "", Value::createNil(), mLine);
 }
 
-std::vector<Token> Scanner::getTokens() {
+std::vector<Token> Scanner::getTokens()
+{
     return std::move(mTokens);
 }
 
@@ -128,10 +130,10 @@ void Scanner::addToken(Token::Type type)
     }
 }
 
-void Scanner::addToken(Token::Type type, Value literal)
+void Scanner::addToken(Token::Type type, const Value& literal)
 {
-    mTokens.push_back(
-        Token(type, mSource.substr(mStart, mCurrent - mStart), literal, mLine));
+    mTokens.emplace_back(
+        type, mSource.substr(mStart, mCurrent - mStart), literal, mLine);
 }
 
 bool Scanner::match(char expected)
@@ -175,7 +177,7 @@ void Scanner::string()
     // the closing "
     advance();
 
-    // we can use substring contructor
+    // we can use substring constructor
     std::string value(mSource, mStart + 1, mCurrent - 1 - mStart - 1);
 
     addToken(Token::Type::STRING, Value::createString(value));
@@ -196,6 +198,7 @@ void Scanner::number()
         }
     }
 
+    // TODO: handle conversion errors which can be caused by atof
     addToken(Token::Type::NUMBER,
         Value::createNumber(atof(mSource.substr(mStart, mCurrent - mStart).c_str())));
 }

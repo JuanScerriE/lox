@@ -5,6 +5,7 @@
 
 // lox
 #include <common/Token.hpp>
+#include <utility>
 
 namespace Lox {
 
@@ -16,6 +17,12 @@ public:
     {
     }
 
+    ParsingError(Token& token, std::string message)
+        : mToken(token)
+        , mMessage(std::move(message))
+    {
+    }
+
     [[nodiscard]] Token& getToken() const
     {
         return mToken;
@@ -23,12 +30,12 @@ public:
 
     [[nodiscard]] char const* what() const noexcept override
     {
-        return mMessage;
+        return mMessage.c_str();
     }
 
 private:
     Token& mToken;
-    char const* mMessage;
+    std::string mMessage;
 };
 
 } // namespace Lox

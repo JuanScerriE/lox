@@ -4,7 +4,7 @@ add_library(lox_lib STATIC
     parser/Parser.cpp
     scanner/Scanner.cpp
     common/Token.cpp
-    # printer/AstPrinter.cpp
+    # mPrinter/AstPrinter.cpp
 )
 
 target_compile_options(lox_lib PRIVATE)
@@ -18,20 +18,3 @@ add_executable(lox
 
 target_compile_options(lox PRIVATE)
 target_link_libraries(lox PRIVATE lox_lib)
-
-#---------------------------------
-
-# enable_testing()
-#
-# add_executable(lox_tests
-#     tests/Tests.cpp
-# )
-#
-# target_compile_options(lox_lib PRIVATE)
-# target_link_libraries(lox_tests PRIVATE
-#     lox_lib
-#     GTest::gtest_main
-# )
-#
-# include(GoogleTest)
-# gtest_discover_tests(lox_tests)
